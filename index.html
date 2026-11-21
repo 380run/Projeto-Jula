@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Projeto Jula</title>
-<meta name="description" content="Projeto Jula: a restauração de uma Chevrolet C10 1977. Jogo, álbum de fotos, 12 músicas e a Julacoin.">
+<meta name="description" content="Projeto Jula: a restauração da Chevrolet C10 1977 do vovô Antônio, em homenagem à vovó Julieta. História, projeto, jogo, álbum de fotos, 12 músicas e a Julacoin.">
 <meta property="og:title" content="Projeto Jula">
-<meta property="og:description" content="Da ferrugem ao vermelho. Jogo, álbum de fotos e músicas da C10 1977.">
+<meta property="og:description" content="Com a família unida, o legado vai viver. A C10 1977 do vovô Antônio, da ferrugem ao vermelho.">
 <meta property="og:image" content="img/324.jpg">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#161616">
@@ -66,6 +66,36 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .intro h2{font-family:var(--display);font-weight:800;font-size:clamp(34px,4.4vw,54px);line-height:.95;text-transform:uppercase;margin:0;text-wrap:balance}
 .intro p{margin:0 0 1em;max-width:62ch}
 
+/* story */
+.story{padding-block:80px 24px;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:48px;align-items:start}
+.story figure img{width:100%;height:auto;border-radius:2px}
+.story h2,.spec-head h2{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(52px,8vw,108px);line-height:.88;margin:0 0 20px;text-wrap:balance}
+.story h2 span,.spec-head h2 span{color:var(--red)}
+.story p{max-width:60ch;margin:0 0 1em}
+.story .drop::first-letter{font-family:var(--display);font-weight:900;font-size:4.2em;float:left;line-height:.8;margin:.06em .1em 0 0;color:var(--red)}
+.memory{margin:36px 0 0;padding:26px 0 0;border-top:1px solid var(--line)}
+.memory h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(26px,3vw,34px);line-height:1;margin:0 0 12px;text-wrap:balance}
+.memory blockquote{margin:0;font-style:italic;font-size:19px;max-width:58ch}
+.memory blockquote p{margin:0 0 .8em}
+.memory cite{display:block;font-style:normal;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+
+/* project spec */
+.spec{padding-block:72px 24px}
+.spec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 48px;align-items:end;margin-bottom:32px}
+.spec-head p{margin:0;max-width:56ch}
+.renders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.renders img{width:100%;height:auto;background:#000}
+.credit{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted);margin:10px 0 0}
+.sheet{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0 40px;margin:44px 0 0;border-top:6px solid var(--red)}
+.sheet div{border-bottom:1px solid var(--line);padding:14px 0;display:grid;gap:2px}
+.sheet dt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.sheet dd{margin:0;font-size:17px;line-height:1.4}
+.parts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:44px}
+.parts img{width:100%;aspect-ratio:1;object-fit:cover}
+.c10note{margin-top:40px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 28px;align-items:baseline}
+.c10note b{font-family:var(--display);font-weight:900;font-size:clamp(44px,6vw,72px);line-height:.9;color:var(--red)}
+.c10note p{margin:0;max-width:64ch;color:var(--muted)}
+
 /* dark bands: game, music */
 .band{background:var(--night);color:var(--night-ink);margin-top:48px}
 .band .wrap{padding-block:72px}
@@ -113,6 +143,9 @@ figcaption time{display:block;font-family:var(--mono);font-size:11px;letter-spac
 .tracks{list-style:none;margin:0;padding:0;border-top:1px solid #3a352f}
 .tracks li{border-bottom:1px solid #3a352f}
 .tracks button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:2.2em minmax(0,1fr) auto;gap:12px;align-items:center;width:100%;padding:13px 4px;cursor:pointer;font-size:18px}
+.tracks .t small{display:block;font-size:14px;font-style:italic;color:var(--night-muted);line-height:1.35;margin-top:2px}
+.anthem{margin:28px 0 0;padding-left:16px;border-left:3px solid #ff3b30;font-style:italic;color:#e9e1d6;font-size:18px;line-height:1.5}
+.anthem cite{display:block;margin-top:8px;font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--night-muted)}
 .tracks button:hover,.tracks button[aria-pressed="true"]{color:#ff3b30}
 .tracks button:focus-visible{outline:2px solid #ff3b30;outline-offset:2px}
 .tracks .n{font-family:var(--mono);font-size:12px;color:var(--night-muted)}
@@ -150,7 +183,11 @@ footer .links{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;font-fami
 .lb .nav{display:flex;gap:8px;flex:none}
 
 @media (max-width:820px){
-  .intro,.game,.music,.coin{grid-template-columns:1fr;gap:24px}
+  .intro,.game,.music,.coin,.story,.spec-head{grid-template-columns:1fr;gap:24px}
+  .story figure{max-width:420px}
+  .parts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .renders{grid-template-columns:1fr}
+  .c10note{grid-template-columns:1fr}
   .game img{width:min(280px,80%)}
   .ch-head{grid-template-columns:1fr}
   .ch-text{grid-column:1}
@@ -168,6 +205,8 @@ footer .links{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;font-fami
   <div class="wrap">
     <a class="brand" href="#inicio">Jula<span>.</span></a>
     <nav aria-label="Seções">
+      <a href="#historia" class="opt">História</a>
+      <a href="#projeto" class="opt">Projeto</a>
       <a href="#jogo">Jogo</a>
       <a href="#album">Álbum</a>
       <a href="#musicas">Músicas</a>
@@ -194,11 +233,62 @@ footer .links{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;font-fami
 </div>
 
 <main>
-  <section class="wrap intro">
-    <h2>Uma caminhonete que virou legado</h2>
+  <section class="wrap story" id="historia" aria-labelledby="hist-t">
+    <figure>
+      <img src="img/livro-vovo-jula.jpg" alt="Retrato da vovó Julieta, a Jula, com o emblema C10 e o nome Jula" width="1342" height="1400" loading="lazy">
+      <figcaption>Vovó Julieta da Silva, a Jula. O coração da família.</figcaption>
+    </figure>
     <div>
-      <p>O Projeto Jula é a restauração de uma Chevrolet C10 1977, um tributo à Jula e ao vovô Antônio. Foram anos de chapa cortada e refeita, primer, lixa e peça medida duas vezes antes de comprar, até o vermelho voltar para a rua.</p>
-      <p>A história não coube só na garagem. Virou jogo para jogar no celular, doze músicas, uma moeda e um álbum de fotos. Tudo está aqui, nesta página.</p>
+      <span class="eyebrow" style="color:var(--muted)">Antigomobilismo · O resgate</span>
+      <h2 id="hist-t">A C10 <span>do vovô.</span></h2>
+      <p class="drop">Para o vovô Antônio Ribeiro da Silva, a Chevrolet C10 1977 era mais que um meio de transporte. Era uma extensão do corpo dele. Servia para trabalhar, para levar a família e para os passeios nas estradas de terra do interior da Bahia. A C10 sempre esteve lá, testemunha de muitas memórias.</p>
+      <p>Quando ela finalmente parou de rodar, ninguém imaginava o quanto significava. Até a decisão de trazê-la de volta à vida. Foi aí que a restauração virou algo maior: um reencontro com as raízes e uma forma de manter viva a memória dos avós.</p>
+      <p>O projeto ganhou o nome de Jula em homenagem à vovó Julieta. Forte e presente, ela conduzia a vida com a mesma firmeza com que a caminhonete enfrentava as estradas difíceis.</p>
+      <div class="memory">
+        <h3>Pau de arara: cada parada, uma história</h3>
+        <blockquote>
+          <p>Era madrugada de sábado, ainda escuro lá fora, e o som inconfundível da C10 começava a ecoar pela casa. Meu tio Juarez estava pronto para mais uma viagem à feira de Santo Estêvão.</p>
+          <p>A viagem não passava de 30 quilômetros, mas cada quilômetro parecia um capítulo. A cada fazenda, mais um passageiro: um casal com uma cabra, outro com cestas de queijo e bolo. Para mim, a parte mais especial não era o destino. Era a companhia.</p>
+          <cite>Do livro Projeto Jula The Truck, de Bruno Azevedo</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap spec" id="projeto" aria-labelledby="proj-t">
+    <div class="spec-head">
+      <div>
+        <span class="eyebrow" style="color:var(--muted)">O projeto</span>
+        <h2 id="proj-t">Original no espírito, <span>nova na estrada.</span></h2>
+      </div>
+      <p>A ideia sempre foi preservar a autenticidade da C10, mas com melhorias onde elas importam: chassi, freios, suspensão, transmissão e diferencial. O visual foi planejado em 3D antes da primeira lixa, do vermelho da lataria ao bordado dos bancos.</p>
+    </div>
+    <div class="renders">
+      <img src="img/livro-render-frente.jpg" alt="Projeção 3D da C10 vermelha vista de frente, com grade e para-choque pretos" width="739" height="415" loading="lazy">
+      <img src="img/livro-render-traseira.jpg" alt="Projeção 3D da traseira, com o nome Chevrolet em preto na tampa" width="739" height="415" loading="lazy">
+      <img src="img/livro-render-painel.jpg" alt="Projeção 3D do interior, com painel original e o nome Jula no porta-luvas" width="1170" height="665" loading="lazy">
+      <img src="img/livro-render-porta.jpg" alt="Projeção 3D do forro de porta com bordado diamante em preto e vermelho" width="1366" height="768" loading="lazy">
+    </div>
+    <p class="credit">Projeto visual: Eder H. Martins, ToyPic Art</p>
+    <dl class="sheet">
+      <div><dt>Cor</dt><dd>Vermelho álamo</dd></div>
+      <div><dt>Detalhes em preto</dt><dd>Para-choques, grade frontal, retrovisores e o nome Chevrolet na tampa</dd></div>
+      <div><dt>Interior</dt><dd>Bancos e forros em tecido preto, bordado diamante mosaico em preto e vermelho</dd></div>
+      <div><dt>Painel</dt><dd>Original, com o nome Jula no porta-luvas</dd></div>
+      <div><dt>Caçamba</dt><dd>Assoalho em madeira ipê</dd></div>
+      <div><dt>Freios</dt><dd>A disco</dd></div>
+      <div><dt>Diferencial</dt><dd>Com caixa satélite blocante</dd></div>
+      <div><dt>Motor</dt><dd>261, seis cilindros em linha, 4,3 litros</dd></div>
+    </dl>
+    <div class="parts">
+      <img src="img/livro-peca-chassi.jpg" alt="Chassi restaurado e pintado de preto, com eixos e rodas" width="1400" height="1400" loading="lazy">
+      <img src="img/livro-peca-2.jpg" alt="Peças da suspensão pintadas de preto sobre um pano" width="982" height="982" loading="lazy">
+      <img src="img/livro-peca-3.jpg" alt="Mangas de eixo restauradas" width="1268" height="1268" loading="lazy">
+      <img src="img/livro-peca-4.jpg" alt="Agregado da suspensão dianteira restaurado" width="1400" height="1400" loading="lazy">
+    </div>
+    <div class="c10note">
+      <b>1974</b>
+      <p>A Série 10 da Chevrolet foi fabricada no Brasil de 1964 a 1997, com design desenvolvido aqui. Em 1974 a C-10 substituiu a C-14 e foi uma das primeiras picapes brasileiras com suspensão dianteira independente, o que a deixou mais confortável no dia a dia e mais estável na terra.</p>
     </div>
   </section>
 
@@ -233,8 +323,9 @@ footer .links{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;font-fami
       <div>
         <span class="eyebrow">Álbum Projeto Jula · 12 faixas</span>
         <h2 id="mus-t">Aumenta <span>o som.</span></h2>
-        <p>O Projeto Jula também virou música. São 12 faixas para ouvir na garagem, na estrada ou no encontro de antigos.</p>
+        <p>O Projeto Jula também virou música. As faixas foram criadas com quem participou da restauração, e cada apoiador ganhou uma canção em sua homenagem. A faixa tema, “O legado vai viver”, conta a jornada inteira.</p>
         <a class="btn" href="https://audius.co/jula.thetruck">Ouvir no Audius</a>
+        <blockquote class="anthem">Jula é o nome, uma homenagem de amor,<br>A C10 77 que o tempo marcou.<br>Com a família unida, o legado vai viver.<cite>Refrão de “O legado vai viver”</cite></blockquote>
       </div>
       <div>
         <ol class="tracks" id="tracks"></ol>
@@ -259,13 +350,13 @@ footer .links{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;font-fami
   </section>
 
   <section class="wrap quote">
-    <p>Não é só uma caminhonete. É o que a gente <span>construiu junto.</span></p>
+    <p>Com a família unida, <span>o legado vai viver.</span></p>
   </section>
 </main>
 
 <footer class="wrap">
   <div class="sig">Projeto Jula</div>
-  <p>Chevrolet C10 1977. Um tributo à Jula e ao vovô Antônio.</p>
+  <p>Chevrolet C10 1977. Um tributo à vovó Julieta e ao vovô Antônio.<br>Por Bruno Azevedo, neto de Antônio e Julieta, apaixonado por carros e motos antigas. Projeto visual de Eder H. Martins, ToyPic Art.</p>
   <div class="links">
     <a href="https://380run.github.io/julathetruck/">Jogo</a>
     <a href="https://audius.co/jula.thetruck">Músicas no Audius</a>
@@ -366,20 +457,20 @@ const CH = [
    [320,844,1500,"<em>Jula.</em>","30 ago 2026"]
   ]}
 ];
-// Audius: [id, título, segundos, endereço]
+// Audius: [id, título, segundos, endereço, verso do livro]
 const TRACKS=[
- ["laKrM1l","O legado vai viver",151,"o-legado-vai-viver"],
- ["oE7jWXd","Jula, vamos sair!",147,"jula-vamos-sair"],
- ["R64vPOR","Bora Bruno, Bora!",157,"bora-bruno-bora"],
- ["MgpQERm","Bom Jesus da Lapa",240,"bom-jesus-da-lapa"],
- ["3OoRbJV","Totoin de Chico",227,"totoin-de-chico"],
- ["V6Wgy1b","Mariá",206,"mari%C3%A1"],
- ["dpv4V44","Arletiane",172,"arletiane"],
- ["kPQXp8B","Marquinhos",118,"marquinhos"],
- ["8zMG50O","Wellington",129,"wellington"],
- ["2MAlA7K","Corpo Fechado",170,"corpo-fechado"],
- ["Og8p6VV","Ar de versejar",162,"ar-de-versejar"],
- ["WbNgQwZ","Só de quina",160,"s%C3%B3-de-quina"]
+ ["laKrM1l","O legado vai viver",151,"o-legado-vai-viver","A faixa tema. A C10 do vovô, vamos reconstruir."],
+ ["oE7jWXd","Jula, vamos sair!",147,"jula-vamos-sair","A C10 vermelha está pronta pra te acompanhar."],
+ ["R64vPOR","Bora Bruno, Bora!",157,"bora-bruno-bora","Do sertão a Brasília, com garra e fé."],
+ ["MgpQERm","Bom Jesus da Lapa",240,"bom-jesus-da-lapa","De Dez-Réis até o altar, para agradecer pela jornada."],
+ ["3OoRbJV","Totoin de Chico",227,"totoin-de-chico","Fazenda Lagoa dos Moços é meu chão."],
+ ["V6Wgy1b","Mariá",206,"mari%C3%A1","Maria com acento no A."],
+ ["dpv4V44","Arletiane",172,"arletiane","Arlete, ou Ane Arletiane, é força em ação."],
+ ["kPQXp8B","Marquinhos",118,"marquinhos","O homem que não foge da labuta."],
+ ["8zMG50O","Wellington",129,"wellington","Chorão da Feira, faz curva fechada."],
+ ["2MAlA7K","Corpo Fechado",170,"corpo-fechado",""],
+ ["Og8p6VV","Ar de versejar",162,"ar-de-versejar",""],
+ ["WbNgQwZ","Só de quina",160,"s%C3%B3-de-quina",""]
 ];
 
 /* album */
@@ -420,9 +511,9 @@ lb.addEventListener('touchend',e=>{if(tx===null)return; const d=e.changedTouches
 /* músicas: o player do Audius só carrega quando alguém escolhe uma faixa */
 const tl=document.getElementById('tracks'),pl=document.getElementById('player');
 const mmss=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
-TRACKS.forEach(([id,t,s,slug],i)=>{
+TRACKS.forEach(([id,t,s,slug,line],i)=>{
   const li=document.createElement('li');
-  li.innerHTML=`<button type="button" aria-pressed="false" data-i="${i}"><span class="n">${String(i+1).padStart(2,'0')}</span><span>${t}</span><span class="d">${mmss(s)}</span></button>`;
+  li.innerHTML=`<button type="button" aria-pressed="false" data-i="${i}"><span class="n">${String(i+1).padStart(2,'0')}</span><span class="t">${t}${line?`<small>${line}</small>`:''}</span><span class="d">${mmss(s)}</span></button>`;
   tl.appendChild(li);
 });
 tl.addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return;
