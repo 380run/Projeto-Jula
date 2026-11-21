@@ -7,11 +7,14 @@
 <meta name="description" content="Projeto Jula: a restauração da Chevrolet C10 1977 do vovô Antônio, em homenagem à vovó Julieta. História, projeto, jogo, álbum de fotos, 12 músicas e a Julacoin.">
 <meta property="og:title" content="Projeto Jula">
 <meta property="og:description" content="Com a família unida, o legado vai viver. A C10 1977 do vovô Antônio, da ferrugem ao vermelho.">
-<meta property="og:image" content="img/324.jpg">
+<meta property="og:image" content="https://380run.github.io/Projeto-Jula/img/324.jpg">
+<meta property="og:url" content="https://380run.github.io/Projeto-Jula/">
 <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#161616">
 <link rel="icon" type="image/png" href="img/jogo-icone.png">
-<style>[hidden]{display:none!important}html{color-scheme:light}body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<link rel="apple-touch-icon" href="img/jogo-icone.png">
+<style>[hidden]{display:none!important}html{color-scheme:light;-webkit-text-size-adjust:100%;text-size-adjust:100%}body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;800;900&family=Literata:ital,opsz,wght@0,7..72,400;1,7..72,400;1,7..72,500&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
@@ -30,7 +33,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 a{color:inherit}
 .wrap{max-width:1240px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 :focus-visible{outline:3px solid var(--red);outline-offset:3px}
@@ -44,7 +47,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .top nav{display:flex;gap:4px 18px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
 .top nav a{text-decoration:none;color:var(--night-muted);padding:6px 0}
 .top nav a:hover{color:var(--night-ink)}
-@media (max-width:560px){.top nav a.opt{display:none}}
+@media (max-width:640px){.top .wrap{gap:12px}.top nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;min-width:0;gap:16px;mask-image:linear-gradient(90deg,#000 85%,transparent)}.top nav::-webkit-scrollbar{display:none}.top nav a{white-space:nowrap;padding:14px 0}.top nav a:last-child{padding-right:24px}}
 
 /* cover */
 .cover{position:relative;min-height:min(84vh,820px);display:flex;align-items:flex-end;color:#f6f1ea;overflow:hidden;background:#2a201a}
@@ -135,6 +138,9 @@ figcaption time{display:block;font-family:var(--mono);font-size:11px;letter-spac
 .feature .shot{aspect-ratio:16/8;max-height:78vh}
 .feature .shot img{height:100%;object-fit:cover}
 .feature figcaption{font-size:17px}
+.feature.tall .shot{aspect-ratio:auto;max-height:none;display:flex;justify-content:center;background:var(--paper)}
+.feature.tall .shot img{width:auto;max-width:100%;height:auto;max-height:82vh;object-fit:contain}
+[id]{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 64px)}
 .masonry{columns:3 300px;column-gap:22px}
 .masonry figure{break-inside:avoid;margin-bottom:26px}
 
@@ -170,10 +176,11 @@ figcaption time{display:block;font-family:var(--mono);font-size:11px;letter-spac
 .quote p span{color:var(--red)}
 footer{padding-block:48px 72px;border-top:1px solid var(--line);margin-top:40px;color:var(--muted);font-size:15px}
 footer .sig{font-family:var(--display);font-weight:800;font-size:40px;color:var(--ink);text-transform:uppercase;line-height:1}
-footer .links{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;font-family:var(--mono);font-size:13px}
+footer .links{display:flex;flex-wrap:wrap;gap:0 24px;margin-top:8px;font-family:var(--mono);font-size:13px}
+footer .links a{padding-block:12px}
 
 /* lightbox */
-.lb{position:fixed;inset:0;z-index:50;background:rgba(10,8,6,.94);display:grid;grid-template-rows:1fr auto;padding:calc(env(safe-area-inset-top,0px) + 16px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(16px,env(safe-area-inset-left,0px));color:#eee7de}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(10,8,6,.97);display:grid;grid-template-rows:1fr auto;padding:calc(env(safe-area-inset-top,0px) + 16px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(16px,env(safe-area-inset-left,0px));color:#eee7de}
 .lb img{max-height:100%;max-width:100%;margin:auto;object-fit:contain;min-height:0}
 .lb .stage{display:flex;min-height:0}
 .lb .bar{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:12px;font-size:15px}
@@ -191,7 +198,8 @@ footer .links{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;font-fami
   .game img{width:min(280px,80%)}
   .ch-head{grid-template-columns:1fr}
   .ch-text{grid-column:1}
-  .feature .shot{aspect-ratio:4/3}
+  .feature:not(.tall) .shot{aspect-ratio:4/3}
+  .feature.tall .shot img{max-height:75vh}
   .chapter{padding-block:52px 8px}
   .lb .bar{flex-direction:column;align-items:stretch}
   .lb .nav{justify-content:space-between}
@@ -478,7 +486,7 @@ const all=[],host=document.getElementById('chapters'),key=document.getElementByI
 const roman=["I","II","III","IV","V","VI","VII","VIII"];
 const pad=id=>String(id).padStart(3,'0');
 const fig=(s,big)=>{const [id,w,h,cap,date]=s,n=all.length; all.push(s);
-  const f=document.createElement('figure'); if(big) f.className='feature';
+  const f=document.createElement('figure'); if(big) f.className=h>=w?'feature tall':'feature';
   const alt=cap.replace(/<[^>]+>/g,'');
   f.innerHTML=`<div class="shot" tabindex="0" role="button" aria-label="Ampliar: ${alt}" data-i="${n}"><img src="img/${pad(id)}.jpg" width="${w}" height="${h}" loading="lazy" alt="${alt}"></div><figcaption>${cap}${date?`<time>${date}</time>`:''}</figcaption>`;
   return f;};
