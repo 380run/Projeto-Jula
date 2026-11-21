@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Projeto Jula</title>
+<meta name="description" content="Projeto Jula: a restauração de uma Chevrolet C10 1977. Jogo, álbum de fotos, 12 músicas e a Julacoin.">
+<meta property="og:title" content="Projeto Jula">
+<meta property="og:description" content="Da ferrugem ao vermelho. Jogo, álbum de fotos e músicas da C10 1977.">
+<meta property="og:image" content="img/324.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#161616">
+<link rel="icon" type="image/png" href="img/jogo-icone.png">
+<style>[hidden]{display:none!important}html{color-scheme:light}body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;800;900&family=Literata:ital,opsz,wght@0,7..72,400;1,7..72,400;1,7..72,500&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a garage logbook. Cover, then three doors into the legacy (game, photos, songs, coin). Each album chapter is a coat on the truck. */
+:root{
+  --bg:#e8e5df; --paper:#f3f1ec; --ink:#1d1b19; --muted:#6a645c; --line:#c9c3b9; --red:#c4161c;
+  --night:#161616; --night-ink:#efe8de; --night-muted:#a89f93;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Literata",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141210;--paper:#1c1916;--ink:#ece7df;--muted:#a39b90;--line:#36312b;--red:#e0262c;--night:#0c0b0a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141210;--paper:#1c1916;--ink:#ece7df;--muted:#a39b90;--line:#36312b;--red:#e0262c;--night:#0c0b0a;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1240px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+
+/* top bar */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--night)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--night);color:var(--night-ink)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:54px}
+.top .brand{font-family:var(--display);font-weight:900;font-size:24px;text-transform:uppercase;text-decoration:none;letter-spacing:.02em}
+.top .brand span{color:#ff3b30}
+.top nav{display:flex;gap:4px 18px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.top nav a{text-decoration:none;color:var(--night-muted);padding:6px 0}
+.top nav a:hover{color:var(--night-ink)}
+@media (max-width:560px){.top nav a.opt{display:none}}
+
+/* cover */
+.cover{position:relative;min-height:min(84vh,820px);display:flex;align-items:flex-end;color:#f6f1ea;overflow:hidden;background:#2a201a}
+.cover>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%}
+.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 30%,rgba(10,6,4,.85) 100%)}
+.cover .wrap{position:relative;z-index:1;width:100%;padding-block:48px 40px}
+.plate{display:inline-flex;font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;border:1.5px solid rgba(246,241,234,.7);padding:6px 10px;border-radius:3px}
+.cover h1{font-family:var(--display);font-weight:900;font-size:clamp(88px,19vw,250px);line-height:.82;margin:18px 0 8px;text-transform:uppercase}
+.cover h1 span{color:#ff3b30}
+.cover .lede{font-style:italic;font-size:clamp(19px,2.4vw,26px);max-width:36ch;margin:0;text-wrap:balance;color:#efe7dd}
+.cover .doors{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 14px var(--mono);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:13px 18px;border-radius:3px;border:1.5px solid currentColor;cursor:pointer;background:transparent;color:inherit}
+.btn.solid{background:var(--red);border-color:var(--red);color:#fff}
+.btn:hover{filter:brightness(1.1)}
+
+.coats{display:grid;grid-template-columns:repeat(6,1fr);height:14px}
+
+.intro{padding-block:64px 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:40px;align-items:start}
+.intro h2{font-family:var(--display);font-weight:800;font-size:clamp(34px,4.4vw,54px);line-height:.95;text-transform:uppercase;margin:0;text-wrap:balance}
+.intro p{margin:0 0 1em;max-width:62ch}
+
+/* dark bands: game, music */
+.band{background:var(--night);color:var(--night-ink);margin-top:48px}
+.band .wrap{padding-block:72px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--night-muted);display:block;margin-bottom:10px}
+.band h2{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(52px,8vw,108px);line-height:.88;margin:0 0 18px;text-wrap:balance}
+.band h2 span{color:#ff3b30}
+.band p{max-width:52ch;color:#d9d1c6;margin:0 0 1em}
+.game{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:center}
+.game img{width:min(420px,100%);margin-inline:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.5))}
+.steps{list-style:none;padding:0;margin:26px 0;display:grid;gap:12px;counter-reset:s}
+.steps li{display:flex;gap:16px;align-items:baseline;font-size:18px}
+.steps li b{font-family:var(--mono);font-size:13px;color:#ff3b30;flex:none}
+.small{font-size:14px;color:var(--night-muted)!important}
+
+/* album */
+.album-head{padding-block:88px 0}
+.album-head h2{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(52px,8vw,108px);line-height:.88;margin:0;text-wrap:balance}
+.album-head p{max-width:60ch}
+.coatkey{display:flex;flex-wrap:wrap;gap:6px 22px;padding-block:14px 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.coatkey a{text-decoration:none;display:inline-flex;gap:8px;align-items:center}
+.coatkey a:hover{color:var(--ink)}
+.coatkey b{width:10px;height:10px;border-radius:50%;display:inline-block}
+.chapter{padding-block:64px 24px}
+.ch-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 28px;align-items:end;border-top:6px solid var(--coat);padding-top:22px;margin-bottom:28px}
+.ch-num{font-family:var(--display);font-weight:900;font-size:clamp(72px,10vw,132px);line-height:.8;color:var(--coat)}
+.ch-head h3{font-family:var(--display);font-weight:800;font-size:clamp(36px,5vw,64px);line-height:.9;text-transform:uppercase;margin:0;text-wrap:balance}
+.ch-head .coatname{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
+.ch-text{grid-column:2;max-width:60ch;margin:10px 0 0;font-size:18px}
+figure{margin:0}
+.shot{position:relative;cursor:zoom-in;background:var(--paper);overflow:hidden}
+.shot img{width:100%;height:auto;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.shot:hover img{transform:scale(1.025)}
+figcaption{font-size:15px;line-height:1.45;padding:10px 2px 0;color:var(--muted)}
+figcaption em{color:var(--ink)}
+figcaption time{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;margin-top:3px}
+.feature{margin-bottom:28px}
+.feature .shot{aspect-ratio:16/8;max-height:78vh}
+.feature .shot img{height:100%;object-fit:cover}
+.feature figcaption{font-size:17px}
+.masonry{columns:3 300px;column-gap:22px}
+.masonry figure{break-inside:avoid;margin-bottom:26px}
+
+/* music */
+.music{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px;align-items:start}
+.tracks{list-style:none;margin:0;padding:0;border-top:1px solid #3a352f}
+.tracks li{border-bottom:1px solid #3a352f}
+.tracks button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:2.2em minmax(0,1fr) auto;gap:12px;align-items:center;width:100%;padding:13px 4px;cursor:pointer;font-size:18px}
+.tracks button:hover,.tracks button[aria-pressed="true"]{color:#ff3b30}
+.tracks button:focus-visible{outline:2px solid #ff3b30;outline-offset:2px}
+.tracks .n{font-family:var(--mono);font-size:12px;color:var(--night-muted)}
+.tracks .d{font-family:var(--mono);font-size:13px;color:var(--night-muted);font-variant-numeric:tabular-nums}
+.player{margin-top:18px;min-height:0}
+.player iframe{width:100%;height:120px;border:0;border-radius:4px;display:block}
+.player .link{display:block;margin-top:8px;font-family:var(--mono);font-size:12px;color:var(--night-muted)}
+
+/* coin */
+.coin{padding-block:88px 40px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:40px;align-items:center}
+.coin .disc{width:clamp(130px,18vw,200px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff5a4f,var(--red) 55%,#7a0d10);display:grid;place-items:center;color:#fff;font-family:var(--display);font-weight:900;font-size:clamp(34px,5vw,52px);box-shadow:inset 0 0 0 8px rgba(255,255,255,.18),0 20px 40px rgba(0,0,0,.25)}
+.coin h2{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(52px,8vw,108px);line-height:.88;margin:0 0 14px}
+.coin h2 span{color:var(--red)}
+.coin p{max-width:56ch;margin:0 0 1em}
+.coin dl{display:flex;flex-wrap:wrap;gap:8px 32px;margin:0 0 20px;font-family:var(--mono);font-size:13px}
+.coin dt{color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.coin dd{margin:0;font-weight:600}
+.warn{font-size:14px;color:var(--muted);border-left:3px solid var(--line);padding-left:12px;max-width:62ch}
+
+.quote{padding-block:72px 40px}
+.quote p{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(40px,7vw,96px);line-height:.92;margin:0;max-width:14ch;text-wrap:balance}
+.quote p span{color:var(--red)}
+footer{padding-block:48px 72px;border-top:1px solid var(--line);margin-top:40px;color:var(--muted);font-size:15px}
+footer .sig{font-family:var(--display);font-weight:800;font-size:40px;color:var(--ink);text-transform:uppercase;line-height:1}
+footer .links{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;font-family:var(--mono);font-size:13px}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:50;background:rgba(10,8,6,.94);display:grid;grid-template-rows:1fr auto;padding:calc(env(safe-area-inset-top,0px) + 16px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(16px,env(safe-area-inset-left,0px));color:#eee7de}
+.lb img{max-height:100%;max-width:100%;margin:auto;object-fit:contain;min-height:0}
+.lb .stage{display:flex;min-height:0}
+.lb .bar{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:12px;font-size:15px}
+.lb .bar p{margin:0;max-width:70ch}
+.lb .bar small{font-family:var(--mono);font-size:11px;opacity:.7;display:block}
+.lb button{font:600 13px var(--mono);background:transparent;color:inherit;border:1px solid rgba(238,231,222,.4);padding:10px 14px;border-radius:3px;cursor:pointer;min-width:44px}
+.lb .nav{display:flex;gap:8px;flex:none}
+
+@media (max-width:820px){
+  .intro,.game,.music,.coin{grid-template-columns:1fr;gap:24px}
+  .game img{width:min(280px,80%)}
+  .ch-head{grid-template-columns:1fr}
+  .ch-text{grid-column:1}
+  .feature .shot{aspect-ratio:4/3}
+  .chapter{padding-block:52px 8px}
+  .lb .bar{flex-direction:column;align-items:stretch}
+  .lb .nav{justify-content:space-between}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.shot img{transition:none}.shot:hover img{transform:none}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio">Jula<span>.</span></a>
+    <nav aria-label="Seções">
+      <a href="#jogo">Jogo</a>
+      <a href="#album">Álbum</a>
+      <a href="#musicas">Músicas</a>
+      <a href="#julacoin" class="opt">Julacoin</a>
+    </nav>
+  </div>
+</div>
+
+<header class="cover" id="inicio">
+  <img src="img/324.jpg" alt="A C10 vermelha restaurada estacionada na rua de paralelepípedos, com alguém ao volante" width="1500" height="844">
+  <div class="wrap">
+    <span class="plate">Chevrolet C10 · 1977 · JLU·1153</span>
+    <h1>Jula<span>.</span></h1>
+    <p class="lede">Da ferrugem ao vermelho. Um álbum sobre insistência, mãos sujas de graxa e uma família unida pelo Legado.</p>
+    <div class="doors">
+      <a class="btn solid" href="https://380run.github.io/julathetruck/">Jogar agora</a>
+      <a class="btn" href="#album">Ver o álbum</a>
+      <a class="btn" href="#musicas">Ouvir as músicas</a>
+    </div>
+  </div>
+</header>
+<div class="coats" aria-hidden="true">
+  <i style="background:#9b4a22"></i><i style="background:#2f4f6b"></i><i style="background:#a7a198"></i><i style="background:#c7c7b8"></i><i style="background:#16181a"></i><i style="background:#c4161c"></i>
+</div>
+
+<main>
+  <section class="wrap intro">
+    <h2>Uma caminhonete que virou legado</h2>
+    <div>
+      <p>O Projeto Jula é a restauração de uma Chevrolet C10 1977, um tributo à Jula e ao vovô Antônio. Foram anos de chapa cortada e refeita, primer, lixa e peça medida duas vezes antes de comprar, até o vermelho voltar para a rua.</p>
+      <p>A história não coube só na garagem. Virou jogo para jogar no celular, doze músicas, uma moeda e um álbum de fotos. Tudo está aqui, nesta página.</p>
+    </div>
+  </section>
+
+  <section class="band" id="jogo" aria-labelledby="jogo-t">
+    <div class="wrap game">
+      <div>
+        <span class="eyebrow">Jogo de restauração · carros antigos brasileiros</span>
+        <h2 id="jogo-t">Tire a C10 <span>da ferrugem.</span></h2>
+        <p>Uma C10 1977 parada na garagem, pouco dinheiro no bolso e o Seu Zito de olho em cada peça. A restauração é com você.</p>
+        <ol class="steps">
+          <li><b>01</b>Compre as peças</li>
+          <li><b>02</b>Aperte cada parafuso</li>
+          <li><b>03</b>Dê a partida</li>
+        </ol>
+        <a class="btn solid" href="https://380run.github.io/julathetruck/">Jogar agora</a>
+        <p class="small" style="margin-top:16px">Roda direto no navegador do celular. Para instalar, abra no Safari (iPhone) ou no Chrome (Android) e adicione à tela de início.</p>
+      </div>
+      <img src="img/jogo-icone.png" alt="Emblema do jogo Jula The Truck, com a C10 1977 vermelha" width="512" height="512" loading="lazy">
+    </div>
+  </section>
+
+  <section class="wrap album-head" id="album" aria-labelledby="album-t">
+    <span class="eyebrow" style="color:var(--muted)">Álbum de fotos · 2024 a 2026</span>
+    <h2 id="album-t">Da ferrugem ao vermelho</h2>
+    <p>Fotos tiradas no meio do trabalho, sem pose, com o celular na mão suja. Elas mostram o que quase nunca aparece no resultado final: chapa podre, madrugadas de lixa, dedo machucado e, no fim, a cor. Toque numa foto para ampliar.</p>
+  </section>
+  <nav class="wrap coatkey" id="coatkey" aria-label="Capítulos do álbum"></nav>
+  <div id="chapters"></div>
+
+  <section class="band" id="musicas" aria-labelledby="mus-t">
+    <div class="wrap music">
+      <div>
+        <span class="eyebrow">Álbum Projeto Jula · 12 faixas</span>
+        <h2 id="mus-t">Aumenta <span>o som.</span></h2>
+        <p>O Projeto Jula também virou música. São 12 faixas para ouvir na garagem, na estrada ou no encontro de antigos.</p>
+        <a class="btn" href="https://audius.co/jula.thetruck">Ouvir no Audius</a>
+      </div>
+      <div>
+        <ol class="tracks" id="tracks"></ol>
+        <div class="player" id="player" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap coin" id="julacoin" aria-labelledby="coin-t">
+    <div class="disc" aria-hidden="true">JULA</div>
+    <div>
+      <h2 id="coin-t">In Jula <span>we trust.</span></h2>
+      <p>A Julacoin é a criptomoeda do Projeto Jula. Ela está no Moonshot, para quem quer levar a Jula também na carteira.</p>
+      <dl>
+        <div><dt>Moeda</dt><dd>Julacoin</dd></div>
+        <div><dt>Símbolo</dt><dd>JULA</dd></div>
+        <div><dt>Onde</dt><dd>Moonshot</dd></div>
+      </dl>
+      <a class="btn" href="https://moonshot.com" id="coin-link">Ver a JULA no Moonshot</a>
+      <p class="warn" style="margin-top:20px">Criptomoedas são voláteis e você pode perder o valor aplicado. Isto não é recomendação de investimento.</p>
+    </div>
+  </section>
+
+  <section class="wrap quote">
+    <p>Não é só uma caminhonete. É o que a gente <span>construiu junto.</span></p>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="sig">Projeto Jula</div>
+  <p>Chevrolet C10 1977. Um tributo à Jula e ao vovô Antônio.</p>
+  <div class="links">
+    <a href="https://380run.github.io/julathetruck/">Jogo</a>
+    <a href="https://audius.co/jula.thetruck">Músicas no Audius</a>
+    <a href="#julacoin">Julacoin</a>
+  </div>
+</footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <div class="stage"><img id="lbImg" alt=""></div>
+  <div class="bar">
+    <p><span id="lbCap"></span><small id="lbMeta"></small></p>
+    <div class="nav">
+      <button id="lbPrev" aria-label="Foto anterior">←</button>
+      <button id="lbNext" aria-label="Próxima foto">→</button>
+      <button id="lbClose" aria-label="Fechar">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const CH = [
+ {key:"ferrugem", coat:"#9b4a22", coatName:"Demão 0 · Ferrugem", title:"Onde tudo começa",
+  text:"Toda restauração começa com alguém olhando para um monte de ferrugem e enxergando outra coisa. Portão de tela, pneu murcho, capô aberto, papelada espalhada no chão. O começo é teimosia.",
+  shots:[
+   [361,1280,720,"<em>Como ela estava.</em> Cansada, desbotada, mas inteira o bastante para valer a pena.",""],
+   [342,1280,719,"Diante do portão, o primeiro encontro.",""],
+   [344,576,1280,"Atrás da tela, a grade cromada ainda esperando.",""],
+   [408,1280,589,"<em>A geração seguinte já estava de olho.</em>",""],
+   [369,1280,720,"A frente original, com o tempo marcado em cada canto.",""],
+   [349,720,1280,"O banco rasgado e a cabine de quem rodou muita estrada.",""],
+   [357,720,1280,"Documento, recibo e carimbo. A parte da restauração que ninguém fotografa.",""],
+   [487,720,1280,"O chassi por baixo de tudo. Aqui não dava para fingir.",""]
+  ]},
+ {key:"desmonte", coat:"#2f4f6b", coatName:"Demão 1 · O azul velho", title:"Desmontar para entender",
+  text:"Antes de montar é preciso desmontar até o osso. Cada parafuso que sai conta uma história, e cada chapa aberta revela um problema novo. É a fase em que o carro parece pior do que quando chegou.",
+  shots:[
+   [148,1500,675,"<em>A ferrugem só mostra o tamanho real quando a gente abre.</em>","08 dez 2024"],
+   [56,844,1500,"Cabine depenada, sem porta, sem para-lama.","08 out 2024"],
+   [112,1500,844,"Cabine na carretinha, a caminho da próxima etapa.","28 out 2024"],
+   [224,843,1500,"Azul, marrom e metal nu. Três épocas na mesma porta.","23 mar 2025"],
+   [365,720,1280,"Suspensão dianteira inteira para trás.",""],
+   [72,1500,675,"A peça podre na mão, antes de virar molde da nova.","13 out 2024"],
+   [433,1032,581,"Medir duas vezes, comprar uma.",""],
+   [524,720,1280,"<em>O plano no caderno.</em> Freio, circuito, lado esquerdo, lado direito.",""]
+  ]},
+ {key:"maos", coat:"#a7a198", coatName:"Demão 2 · Metal nu", title:"As mãos",
+  text:"Nenhuma máquina fez este trabalho sozinha. Ele passou por mãos que mediram, cortaram, soldaram e se machucaram. A graxa sai depois de alguns dias. O orgulho, não.",
+  shots:[
+   [267,1500,843,"<em>A palma diz tudo.</em> Graxa, frente desmontada e a aliança no dedo.","22 mar 2026"],
+   [16,1500,675,"Molde de papelão antes do corte na chapa.","21 set 2024"],
+   [168,844,1500,"Faísca no para-choque, no esmeril.","23 dez 2024"],
+   [140,844,1500,"Fita métrica na moldura da lanterna, milímetro por milímetro.","06 dez 2024"],
+   [517,720,1280,"Parafusos que saíram e precisam voltar.",""],
+   [317,844,1500,"O preço do trabalho, escrito na unha.","22 ago 2026"],
+   [255,843,1500,"Massa, lixa e a mão conferindo a curva.","14 mar 2026"]
+  ]},
+ {key:"juntos", coat:"#c08a2e", coatName:"Entre uma demão e outra", title:"Ninguém restaura sozinho",
+  text:"Por trás da caminhonete há gente. Amigos dividindo o almoço no chão da oficina depois de mais um dia pesado. É aqui que o projeto vira família.",
+  shots:[
+   [136,1500,844,"Almoço na oficina. A melhor parte do dia.","01 dez 2024"],
+   [0,1500,844,"<em>Quem começou a sonhar, ao lado do sonho pronto.</em>",""]
+  ]},
+ {key:"primer", coat:"#9aa08f", coatName:"Demão 3 · Primer", title:"Renascer em primer",
+  text:"Primer é a fase da paciência. O carro fica de uma cor só, sem brilho, e todo defeito aparece. Lixa, mais primer, mais lixa, até a chapa ficar lisa como deveria ter sido em 1977.",
+  shots:[
+   [42,1500,1500,"<em>A caçamba ganha forma de novo.</em>","06 out 2024"],
+   [52,1500,1500,"Lateral pronta para receber a cor.","06 out 2024"],
+   [241,1280,1280,"Cabine em transição: o azul antigo e a massa nova.","07 dez 2025"],
+   [245,1280,1280,"A mesma cabine depois de dias de lixa.","07 dez 2025"],
+   [254,1280,1280,"Assoalho refeito e selado.","17 fev 2026"],
+   [516,1240,1280,"<em>Chassi pintado de preto.</em> A base que ninguém vê e que segura tudo.",""],
+   [506,720,1280,"Suspensão restaurada, peça por peça.",""]
+  ]},
+ {key:"cor", coat:"#c4161c", coatName:"Demão 4 · Vermelho", title:"A cor",
+  text:"Depois de anos de chapa, o dia da tinta. Na cabine de pintura o vermelho cobre tudo, e a Jula aparece de verdade pela primeira vez.",
+  shots:[
+   [277,843,1500,"<em>O primeiro brilho.</em>","26 abr 2026"],
+   [275,843,1500,"Papel e fita protegendo o que não é para pintar.","26 abr 2026"],
+   [278,843,1500,"O vermelho escorrendo pela linha da cabine.","26 abr 2026"],
+   [304,844,1500,"Faróis acesos pela primeira vez.","05 ago 2026"]
+  ]},
+ {key:"montagem", coat:"#7a0d10", coatName:"Acabamento", title:"Cada peça no lugar",
+  text:"Montar de volta é a recompensa. Farol, banco, volante, grade, lanterna. Cada peça que encaixa é uma pequena vitória depois de tudo que veio antes.",
+  shots:[
+   [312,844,1500,"<em>A gravata no lugar.</em>","18 ago 2026"],
+   [285,843,1500,"Farol novo no para-lama vermelho.","15 jun 2026"],
+   [294,844,1500,"Banco instalado. Agora dá para sentar.","26 jul 2026"],
+   [303,844,1500,"O volante de sempre, num painel novo.","05 ago 2026"],
+   [311,1500,844,"<em>CHEVROLET</em> na tampa e a lanterna acesa.","18 ago 2026"]
+  ]},
+ {key:"rua", coat:"#e0262c", coatName:"Na rua", title:"De volta à rua",
+  text:"O fim de uma restauração é quando ela sai da garagem. Paralelepípedo, sol e alguém sorrindo ao volante. Para isso serviu cada hora de trabalho.",
+  shots:[
+   [325,1500,844,"<em>O sorriso ao volante.</em> É para isso.","30 ago 2026"],
+   [326,1500,844,"O capô brilhando no sol.","30 ago 2026"],
+   [327,1500,844,"Perfil completo. Da ferrugem até aqui.","30 ago 2026"],
+   [322,1500,844,"Pronta para sair.","30 ago 2026"],
+   [320,844,1500,"<em>Jula.</em>","30 ago 2026"]
+  ]}
+];
+// Audius: [id, título, segundos, endereço]
+const TRACKS=[
+ ["laKrM1l","O legado vai viver",151,"o-legado-vai-viver"],
+ ["oE7jWXd","Jula, vamos sair!",147,"jula-vamos-sair"],
+ ["R64vPOR","Bora Bruno, Bora!",157,"bora-bruno-bora"],
+ ["MgpQERm","Bom Jesus da Lapa",240,"bom-jesus-da-lapa"],
+ ["3OoRbJV","Totoin de Chico",227,"totoin-de-chico"],
+ ["V6Wgy1b","Mariá",206,"mari%C3%A1"],
+ ["dpv4V44","Arletiane",172,"arletiane"],
+ ["kPQXp8B","Marquinhos",118,"marquinhos"],
+ ["8zMG50O","Wellington",129,"wellington"],
+ ["2MAlA7K","Corpo Fechado",170,"corpo-fechado"],
+ ["Og8p6VV","Ar de versejar",162,"ar-de-versejar"],
+ ["WbNgQwZ","Só de quina",160,"s%C3%B3-de-quina"]
+];
+
+/* album */
+const all=[],host=document.getElementById('chapters'),key=document.getElementById('coatkey');
+const roman=["I","II","III","IV","V","VI","VII","VIII"];
+const pad=id=>String(id).padStart(3,'0');
+const fig=(s,big)=>{const [id,w,h,cap,date]=s,n=all.length; all.push(s);
+  const f=document.createElement('figure'); if(big) f.className='feature';
+  const alt=cap.replace(/<[^>]+>/g,'');
+  f.innerHTML=`<div class="shot" tabindex="0" role="button" aria-label="Ampliar: ${alt}" data-i="${n}"><img src="img/${pad(id)}.jpg" width="${w}" height="${h}" loading="lazy" alt="${alt}"></div><figcaption>${cap}${date?`<time>${date}</time>`:''}</figcaption>`;
+  return f;};
+CH.forEach((c,ci)=>{
+  const sec=document.createElement('section'); sec.className='wrap chapter'; sec.id=c.key; sec.style.setProperty('--coat',c.coat);
+  sec.innerHTML=`<div class="ch-head"><div class="ch-num">${roman[ci]}</div><div><span class="coatname">${c.coatName}</span><h3>${c.title}</h3></div><p class="ch-text">${c.text}</p></div>`;
+  sec.appendChild(fig(c.shots[0],true));
+  const m=document.createElement('div'); m.className='masonry'; c.shots.slice(1).forEach(s=>m.appendChild(fig(s,false))); sec.appendChild(m);
+  host.appendChild(sec);
+  const a=document.createElement('a'); a.href='#'+c.key; a.innerHTML=`<b style="background:${c.coat}"></b>${roman[ci]} · ${c.title}`; key.appendChild(a);
+});
+
+/* lightbox */
+const lb=document.getElementById('lb'),li=document.getElementById('lbImg'),lc=document.getElementById('lbCap'),lm=document.getElementById('lbMeta');
+let cur=0,last=null;
+function show(i){cur=(i+all.length)%all.length; const [id,,,cap,date]=all[cur];
+  li.src=`img/${pad(id)}.jpg`; li.alt=cap.replace(/<[^>]+>/g,''); lc.innerHTML=cap; lm.textContent=`${cur+1} / ${all.length}${date?' · '+date:''}`;}
+function openLb(i){last=document.activeElement; show(i); lb.hidden=false; document.body.style.overflow='hidden'; document.getElementById('lbClose').focus();}
+function closeLb(){lb.hidden=true; document.body.style.overflow=''; last&&last.focus();}
+host.addEventListener('click',e=>{const s=e.target.closest('.shot'); if(s) openLb(+s.dataset.i);});
+host.addEventListener('keydown',e=>{const s=e.target.closest('.shot'); if(s&&(e.key==='Enter'||e.key===' ')){e.preventDefault(); openLb(+s.dataset.i);}});
+document.getElementById('lbPrev').onclick=()=>show(cur-1);
+document.getElementById('lbNext').onclick=()=>show(cur+1);
+document.getElementById('lbClose').onclick=closeLb;
+lb.addEventListener('click',e=>{if(e.target===lb||e.target.classList.contains('stage')) closeLb();});
+document.addEventListener('keydown',e=>{if(lb.hidden)return; if(e.key==='Escape')closeLb(); if(e.key==='ArrowRight')show(cur+1); if(e.key==='ArrowLeft')show(cur-1);});
+let tx=null; lb.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+lb.addEventListener('touchend',e=>{if(tx===null)return; const d=e.changedTouches[0].clientX-tx; if(Math.abs(d)>50) show(cur+(d<0?1:-1)); tx=null;});
+
+/* músicas: o player do Audius só carrega quando alguém escolhe uma faixa */
+const tl=document.getElementById('tracks'),pl=document.getElementById('player');
+const mmss=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+TRACKS.forEach(([id,t,s,slug],i)=>{
+  const li=document.createElement('li');
+  li.innerHTML=`<button type="button" aria-pressed="false" data-i="${i}"><span class="n">${String(i+1).padStart(2,'0')}</span><span>${t}</span><span class="d">${mmss(s)}</span></button>`;
+  tl.appendChild(li);
+});
+tl.addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return;
+  const [id,t,,slug]=TRACKS[+b.dataset.i];
+  tl.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  pl.hidden=false;
+  pl.innerHTML=`<iframe src="https://audius.co/embed/track/${id}?flavor=compact" title="Player: ${t}" allow="encrypted-media; autoplay" loading="lazy"></iframe><a class="link" href="https://audius.co/Jula.thetruck/${slug}">Abrir “${t}” no Audius</a>`;
+});
+</script>
+
+</body>
+</html>
