@@ -462,6 +462,10 @@ const CH = [
    [326,1500,844,"O capô brilhando no sol.","30 ago 2026"],
    [327,1500,844,"Perfil completo. Da ferrugem até aqui.","30 ago 2026"],
    [322,1500,844,"Pronta para sair.","30 ago 2026"],
+   ["passeio-1",1500,844,"<em>De frente.</em> Grade preta, faróis redondos e a placa JLU·1153.",""],
+   ["passeio-2",1500,844,"CHEVROLET na tampa e o para-choque preto, como no projeto.",""],
+   ["passeio-3",844,1500,"A caçamba por dentro, com a estrutura em preto.",""],
+   ["passeio-4",1500,844,"O céu refletido no vermelho do teto.",""],
    [320,844,1500,"<em>Jula.</em>","30 ago 2026"]
   ]}
 ];
@@ -484,7 +488,7 @@ const TRACKS=[
 /* album */
 const all=[],host=document.getElementById('chapters'),key=document.getElementById('coatkey');
 const roman=["I","II","III","IV","V","VI","VII","VIII"];
-const pad=id=>String(id).padStart(3,'0');
+const pad=id=>typeof id==='string'?id:String(id).padStart(3,'0');
 const fig=(s,big)=>{const [id,w,h,cap,date]=s,n=all.length; all.push(s);
   const f=document.createElement('figure'); if(big) f.className=h>=w?'feature tall':'feature';
   const alt=cap.replace(/<[^>]+>/g,'');
