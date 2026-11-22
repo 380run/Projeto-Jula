@@ -170,6 +170,31 @@ figcaption time{display:block;font-family:var(--mono);font-size:11px;letter-spac
 .coin dl{display:flex;flex-wrap:wrap;gap:8px 32px;margin:0 0 20px;font-family:var(--mono);font-size:13px}
 .coin dt{color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
 .coin dd{margin:0;font-weight:600}
+/* biblioteca da garagem: logo abaixo da mecânica 3D */
+.macts{display:flex;flex-wrap:wrap;gap:8px}
+.lib{background:#121110;color:var(--night-ink);border-top:1px solid #2e2a26}
+.lib .wrap{padding-block:64px 72px}
+.lib-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px 48px;align-items:end;margin-bottom:36px}
+.lib h2{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(44px,6vw,80px);line-height:.9;margin:0;text-wrap:balance}
+.lib h2 span{color:#ff3b30}
+.lib-head p{margin:0;max-width:56ch;color:#d9d1c6}
+.lib-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.shelf{background:#171615;border:1px solid #2e2a26;border-radius:4px;padding:24px;display:flex;flex-direction:column;gap:14px}
+.shelf h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(28px,3vw,36px);line-height:.95;margin:0}
+.shelf p{margin:0;color:#d9d1c6;font-size:16px;line-height:1.55}
+.shelf .meta{font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--night-muted)}
+.book{display:grid;grid-template-columns:150px minmax(0,1fr);gap:22px;align-items:start}
+.book img{width:100%;height:auto;box-shadow:0 18px 30px rgba(0,0,0,.45);border-radius:2px}
+.book .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.secs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px;border-top:1px solid #3a352f}
+.secs li{display:grid;grid-template-columns:3.2em minmax(0,1fr);gap:8px;padding:7px 0;border-bottom:1px solid #2e2a26;font-size:14px;line-height:1.3;color:#a89f93}
+.secs b{font:600 12px var(--mono);color:#6f675e}
+.secs li.in3d{color:#f3ece2}
+.secs li.in3d b{color:#ff3b30}
+.secs-key{font:11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--night-muted)}
+.secs-key i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ff3b30;margin-right:6px}
+@media (max-width:900px){.lib-head,.lib-grid{grid-template-columns:1fr}}
+@media (max-width:520px){.book{grid-template-columns:96px minmax(0,1fr);gap:16px}.book .acts{flex-direction:column}.book .acts .btn{justify-content:center;white-space:nowrap}.secs{grid-template-columns:1fr}.shelf{padding:18px}}
 /* planos de fundo para baixar */
 .walls{padding-block:88px 24px}
 .walls-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px 48px;align-items:end;margin-bottom:32px}
@@ -537,7 +562,7 @@ footer .links a{padding-block:12px}
             <span class="eyebrow">Tudo no lugar</span>
             <h2>Original no espírito, <span>nova na estrada.</span></h2>
             <p>Chassi, freios, suspensão, transmissão e diferencial foram melhorados sem tirar a alma da C10.</p>
-            <a class="btn solid" href="#album">Ver a restauração</a>
+            <p class="macts"><a class="btn solid" href="#album">Ver a restauração</a><a class="btn" href="#biblioteca">Ler o livro</a></p>
           </article>
 
         </div>
@@ -547,6 +572,53 @@ footer .links a{padding-block:12px}
     <!-- espaçadores: a rolagem por eles avança as etapas -->
     <div class="mech-steps" aria-hidden="true">
       <div class="mstep"></div><div class="mstep"></div><div class="mstep"></div><div class="mstep"></div><div class="mstep"></div><div class="mstep"></div><div class="mstep"></div>
+    </div>
+  </section>
+
+  <section class="lib" id="biblioteca" aria-labelledby="lib-t">
+    <div class="wrap">
+      <div class="lib-head">
+        <h2 id="lib-t">Biblioteca <span>da garagem.</span></h2>
+        <p>O que está por trás da restauração: o livro que conta a história da Jula e o manual de fábrica da C10.</p>
+      </div>
+      <div class="lib-grid">
+        <article class="shelf book">
+          <picture><source srcset="img/livro-capa.webp" type="image/webp"><img src="img/livro-capa.jpg" alt="Capa vermelha do livro Projeto Jula The Truck, por Bruno Azevedo" width="605" height="935" loading="lazy"></picture>
+          <div>
+            <span class="meta">O livro · 36 páginas · PDF 6 MB</span>
+            <h3>Projeto Jula The Truck</h3>
+            <p>A história do vovô Antônio e da vovó Julieta, o renascimento da C10, a ficha técnica e as letras das músicas. Por Bruno Azevedo.</p>
+            <div class="acts">
+              <a class="btn solid" href="livro/Projeto-Jula-The-Truck.pdf" target="_blank" rel="noopener">Ler o livro</a>
+              <a class="btn" href="livro/Projeto-Jula-The-Truck.pdf" download="Projeto-Jula-The-Truck.pdf">Baixar</a>
+            </div>
+          </div>
+        </article>
+        <article class="shelf">
+          <span class="meta">O manual · Referência da oficina</span>
+          <h3>Manual de Reparação GM · Série C-10</h3>
+          <p>O manual de fábrica da Chevrolet é a referência técnica da restauração. Como é material da GM, ele não está publicado aqui. Abaixo estão as seções que ele cobre.</p>
+          <span class="secs-key"><i></i>Aparecem na mecânica 3D</span>
+          <ol class="secs">
+            <li><b>00</b><span>Identificação e lubrificação</span></li>
+            <li><b>01</b><span>Cabina e carroçaria</span></li>
+            <li class="in3d"><b>02</b><span>Chassi</span></li>
+            <li><b>03</b><span>Suspensão dianteira</span></li>
+            <li class="in3d"><b>04</b><span>Eixo traseiro, cardã e suspensão traseira</span></li>
+            <li class="in3d"><b>05</b><span>Freios</span></li>
+            <li class="in3d"><b>06</b><span>Motor (mecânica)</span></li>
+            <li class="in3d"><b>06-A</b><span>Motor (eletricidade)</span></li>
+            <li class="in3d"><b>07</b><span>Caixa de mudanças e embreagem</span></li>
+            <li><b>08</b><span>Tanque e escapamento</span></li>
+            <li><b>09</b><span>Direção</span></li>
+            <li><b>10</b><span>Rodas e pneus</span></li>
+            <li><b>11</b><span>Partes metálicas</span></li>
+            <li><b>12</b><span>Sistema elétrico</span></li>
+            <li class="in3d"><b>13</b><span>Radiador e grade</span></li>
+            <li><b>14</b><span>Para-choques</span></li>
+          </ol>
+        </article>
+      </div>
     </div>
   </section>
 
