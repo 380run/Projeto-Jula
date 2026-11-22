@@ -170,6 +170,24 @@ figcaption time{display:block;font-family:var(--mono);font-size:11px;letter-spac
 .coin dl{display:flex;flex-wrap:wrap;gap:8px 32px;margin:0 0 20px;font-family:var(--mono);font-size:13px}
 .coin dt{color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
 .coin dd{margin:0;font-weight:600}
+/* planos de fundo para baixar */
+.walls{padding-block:88px 24px}
+.walls-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px 48px;align-items:end;margin-bottom:32px}
+.walls h2{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(52px,8vw,108px);line-height:.88;margin:0;text-wrap:balance}
+.walls h2 span{color:var(--red)}
+.walls-head p{margin:0;max-width:56ch}
+.wall-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.wall{display:flex;flex-direction:column;gap:12px}
+.wall a.pic{display:block;background:var(--paper);overflow:hidden;border-radius:2px}
+.wall a.pic img{width:100%;aspect-ratio:16/9;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.wall a.pic:hover img{transform:scale(1.03)}
+.wall h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:28px;line-height:1;margin:0}
+.wall p{margin:0;font-size:15px;line-height:1.45;color:var(--muted)}
+.wall .meta{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.wall .btn{align-self:flex-start;margin-top:auto}
+.walls .how{margin-top:28px}
+@media (max-width:980px){.wall-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.walls-head{grid-template-columns:1fr}.wall-grid{grid-template-columns:1fr;gap:36px}.wall .btn{align-self:stretch;justify-content:center}}
 .warn{font-size:14px;color:var(--muted);border-left:3px solid var(--line);padding-left:12px;max-width:62ch}
 
 .quote{padding-block:72px 40px}
@@ -327,6 +345,7 @@ footer .links a{padding-block:12px}
       <a href="#album">Álbum</a>
       <a href="#musicas">Músicas</a>
       <a href="#julacoin" class="opt">Julacoin</a>
+      <a href="#fundos" class="opt">Fundos</a>
     </nav>
   </div>
 </div>
@@ -588,6 +607,37 @@ footer .links a{padding-block:12px}
     </div>
   </section>
 
+  <section class="wrap walls" id="fundos" aria-labelledby="walls-t">
+    <div class="walls-head">
+      <h2 id="walls-t">A Jula na <span>sua tela.</span></h2>
+      <p>Três pinturas da C10 para usar de plano de fundo no computador. Baixe, abra e escolha a sua.</p>
+    </div>
+    <div class="wall-grid">
+      <figure class="wall">
+        <a class="pic" href="img/fundo-ferrugem.jpg" target="_blank" rel="noopener"><picture><source srcset="img/fundo-ferrugem-p.webp" type="image/webp"><img src="img/fundo-ferrugem-p.jpg" alt="Pintura da C10 de lado: a frente ainda enferrujada, a ferrugem se desfazendo em folhas e pássaros vermelhos, e a traseira já pintada de vermelho, no sertão ao pôr do sol" width="960" height="540" loading="lazy"></picture></a>
+        <h3>Ferrugem em voo</h3>
+        <p>A ferrugem se solta como folha seca e vira passarinho. Por baixo, o vermelho.</p>
+        <span class="meta">1672 × 941 px · JPG</span>
+        <a class="btn solid" href="img/fundo-ferrugem.jpg" download="Jula-Ferrugem-em-voo.jpg">Baixar</a>
+      </figure>
+      <figure class="wall">
+        <a class="pic" href="img/fundo-pauta.jpg" target="_blank" rel="noopener"><picture><source srcset="img/fundo-pauta-p.webp" type="image/webp"><img src="img/fundo-pauta-p.jpg" alt="Pintura da frente da C10 vermelha, placa JLU·1153, com fios de cerca formando uma pauta musical com clave de sol e passarinhos pousados" width="960" height="540" loading="lazy"></picture></a>
+        <h3>Pauta sertaneja</h3>
+        <p>Os passarinhos pousam nos fios como notas numa pauta: a Jula e as suas músicas.</p>
+        <span class="meta">1774 × 887 px · JPG</span>
+        <a class="btn solid" href="img/fundo-pauta.jpg" download="Jula-Pauta-sertaneja.jpg">Baixar</a>
+      </figure>
+      <figure class="wall">
+        <a class="pic" href="img/fundo-lua.jpg" target="_blank" rel="noopener"><picture><source srcset="img/fundo-lua-p.webp" type="image/webp"><img src="img/fundo-lua-p.jpg" alt="Pintura da frente da C10 vermelha de faróis acesos diante de uma cerca de madeira, sob as fases da lua num céu estrelado do sertão" width="960" height="540" loading="lazy"></picture></a>
+        <h3>Fases da lua</h3>
+        <p>De faróis acesos na porteira, debaixo das fases da lua.</p>
+        <span class="meta">1672 × 941 px · JPG</span>
+        <a class="btn solid" href="img/fundo-lua.jpg" download="Jula-Fases-da-lua.jpg">Baixar</a>
+      </figure>
+    </div>
+    <p class="warn how"><b>No Windows:</b> clique com o botão direito na imagem baixada e escolha <em>Definir como plano de fundo da área de trabalho</em>. <b>No Mac:</b> clique com o botão direito e escolha <em>Definir Imagem da Mesa</em>.</p>
+  </section>
+
   <section class="wrap quote">
     <p>Com a família unida, <span>o legado vai viver.</span></p>
   </section>
@@ -600,6 +650,7 @@ footer .links a{padding-block:12px}
     <a href="https://380run.github.io/julathetruck/">Jogo</a>
     <a href="https://audius.co/jula.thetruck">Músicas no Audius</a>
     <a href="#julacoin">Julacoin</a>
+    <a href="#fundos">Planos de fundo</a>
   </div>
 </footer>
 
