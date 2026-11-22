@@ -228,11 +228,14 @@ footer .links a{padding-block:12px}
 /* painel */
 .mech-panel{grid-area:panel;position:relative;display:flex;flex-direction:column;min-height:0;background:#171615;border-right:1px solid #2e2a26}
 .mech-rail{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px 0}
-.mech-rail ol{list-style:none;margin:0;padding:0;display:flex;gap:2px}
-.mech-rail button{all:unset;display:block;width:26px;height:26px;cursor:pointer;position:relative}
-.mech-rail button::after{content:"";position:absolute;left:3px;right:3px;top:12px;height:3px;border-radius:2px;background:#3a352f;transition:background .2s}
-.mech-rail button[aria-current=step]::after{background:#ff3b30}
-.mech-rail button:focus-visible{outline:2px solid #ff3b30}
+/* etapas: quadradinhos numerados, fáceis de tocar */
+.mech-rail ol{list-style:none;margin:0;padding:0;display:flex;gap:6px;counter-reset:mstep}
+.mech-rail li{counter-increment:mstep}
+.mech-rail button{all:unset;box-sizing:border-box;display:grid;place-items:center;width:34px;height:34px;cursor:pointer;border:1.5px solid #4a443d;border-radius:4px;background:#1f1d1b;font:600 13px var(--mono);color:#a89f93;transition:background .2s,border-color .2s,color .2s;-webkit-tap-highlight-color:transparent}
+.mech-rail button::after{content:counter(mstep)}
+.mech-rail button:hover{border-color:#ff3b30;color:#f3ece2}
+.mech-rail button[aria-current=step]{background:#ff3b30;border-color:#ff3b30;color:#fff}
+.mech-rail button:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .mech-count{font:600 11px var(--mono);letter-spacing:.1em;color:var(--night-muted)}
 .mech-cards{position:relative;flex:1;min-height:0}
 .mcard{position:absolute;inset:0;overflow:auto;padding:14px 24px 24px;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;scrollbar-width:thin}
@@ -294,7 +297,10 @@ footer .links a{padding-block:12px}
   .mech-stage{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,52fr) minmax(0,48fr);grid-template-areas:"view" "panel"}
   .mech-panel{border-right:0;border-top:1px solid #3a352f}
   .mech-rail{padding:10px 16px 0}
-  .mech-rail button{width:22px}
+  .mech-rail ol{flex:1;gap:6px;justify-content:space-between}
+  .mech-rail li{flex:1 1 0;max-width:46px}
+  .mech-rail button{width:100%;height:40px;font-size:14px}
+  .mech-count{display:none}
   .mcard{padding:10px 16px 18px}
   .mcard h2{font-size:clamp(28px,8vw,40px);margin-bottom:8px}
   .mcard p{font-size:15px;margin-bottom:10px}
