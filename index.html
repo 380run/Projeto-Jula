@@ -206,6 +206,106 @@ footer .links a{padding-block:12px}
   .lb .nav{justify-content:space-between}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.shot img{transition:none}.shot:hover img{transform:none}}
+
+/* por dentro da Jula: bancada 3D guiada pela rolagem.
+   A janela do modelo e o painel de texto nunca se sobrepõem. */
+.mech{position:relative;background:#121110;color:var(--night-ink);margin-top:48px;--hdr:54px}
+.mskip{position:absolute;left:16px;top:8px;z-index:5;transform:translateY(-200%);background:#fff;color:#000;padding:8px 12px;font:600 13px var(--mono)}
+.mskip:focus{transform:none}
+.mech-stage{position:sticky;top:0;height:100vh;height:100svh;padding-top:var(--hdr);display:grid;grid-template-columns:minmax(330px,420px) minmax(0,1fr);grid-template-areas:"panel view"}
+.mech-view{grid-area:view;position:relative;overflow:hidden;min-height:0}
+.mech-view canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.mech-load{position:absolute;inset:0;display:grid;place-items:center;font:12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--night-muted)}
+.mech.ready .mech-load{display:none}
+.mech-scale{position:absolute;right:14px;bottom:12px;font:11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#8a8278;pointer-events:none}
+
+/* chamadas das peças: etiqueta acima, linha até o ponto */
+.mech-labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.mlab{position:absolute;left:0;top:0;font:600 10.5px var(--mono);letter-spacing:.07em;text-transform:uppercase;color:#f3ece2;background:rgba(12,11,10,.82);border:1px solid #3a352f;padding:3px 7px;border-radius:2px;white-space:nowrap;opacity:0;will-change:transform,opacity}
+.mlab::after{content:"";position:absolute;left:50%;top:100%;width:1px;height:16px;background:#ff3b30}
+.mlab::before{content:"";position:absolute;left:calc(50% - 3px);top:calc(100% + 15px);width:7px;height:7px;border-radius:50%;background:#ff3b30;box-shadow:0 0 0 2px rgba(12,11,10,.8)}
+
+/* painel */
+.mech-panel{grid-area:panel;position:relative;display:flex;flex-direction:column;min-height:0;background:#171615;border-right:1px solid #2e2a26}
+.mech-rail{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px 0}
+.mech-rail ol{list-style:none;margin:0;padding:0;display:flex;gap:2px}
+.mech-rail button{all:unset;display:block;width:26px;height:26px;cursor:pointer;position:relative}
+.mech-rail button::after{content:"";position:absolute;left:3px;right:3px;top:12px;height:3px;border-radius:2px;background:#3a352f;transition:background .2s}
+.mech-rail button[aria-current=step]::after{background:#ff3b30}
+.mech-rail button:focus-visible{outline:2px solid #ff3b30}
+.mech-count{font:600 11px var(--mono);letter-spacing:.1em;color:var(--night-muted)}
+.mech-cards{position:relative;flex:1;min-height:0}
+.mcard{position:absolute;inset:0;overflow:auto;padding:14px 24px 24px;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;scrollbar-width:thin}
+.mcard.on{opacity:1;visibility:visible}
+.mcard h2{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(36px,3.4vw,52px);line-height:.9;margin:0 0 14px;text-wrap:balance}
+.mcard h2 span{color:#ff3b30}
+.mcard p{margin:0 0 12px;color:#d9d1c6;font-size:16px;line-height:1.55}
+.mcard .btn{margin-top:4px}
+.mlegend{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.mflow{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}
+.mflow li{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:8px 10px;border-left:3px solid #ff3b30;background:#1f1d1b}
+.mdata{margin:14px 0 4px;border-top:1px solid #3a352f}
+.mdata div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:9px 0;border-bottom:1px solid #3a352f;align-items:baseline}
+.mdata dt{grid-column:1/-1;font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--night-muted)}
+.mdata dd{margin:0;font-size:15px;line-height:1.35}
+.tag{font:600 10px var(--mono);font-style:normal;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:2px;border:1px solid currentColor;white-space:nowrap}
+.t-ficha{color:#ff6a5f}.t-cat{color:#7cc4d8}.t-calc{color:#a9b4ff}.t-conf{color:#f0b43c}
+
+/* instrumentos dentro do painel */
+.mwidget{background:#1f1d1b;border:1px solid #2e2a26;border-radius:4px;padding:12px 14px;margin:4px 0 12px}
+.hud-t{display:block;font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--night-muted);margin-bottom:8px}
+.hud-t b{color:var(--night-ink);font-size:14px;margin-left:6px}
+.mwidget ol{list-style:none;margin:0;padding:0;display:flex;gap:6px;flex-wrap:wrap}
+.mwidget li{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;border:1px solid #4a443d;font:600 13px var(--mono);color:#a89f93;transition:background .08s,box-shadow .08s}
+.mwidget li.on{background:#ff3b30;border-color:#ff3b30;color:#fff;box-shadow:0 0 16px #ff3b30}
+.mwidget-gear{display:flex;align-items:center;gap:16px}
+.mwidget-gear .hud-t{margin:0}
+.mwidget svg{display:block;flex:none}
+.drow{display:grid;grid-template-columns:7.5em minmax(0,1fr) 3em;gap:10px;align-items:center;font-size:13px;margin-bottom:6px}
+.drow i{height:8px;background:#2a2622;border-radius:4px;overflow:hidden}
+.drow i b{display:block;height:100%;background:#ff3b30;width:0}
+.drow em{font:600 13px var(--mono);font-style:normal;text-align:right}
+[data-hud=diff] strong{display:block;font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#f0b43c;margin-top:4px}
+
+/* comandos */
+.mlock{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:52px;margin:4px 0 12px;border-radius:4px;border:2px solid #ff3b30;background:transparent;color:#fff;font:600 14px var(--mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.mlock[aria-pressed=true]{background:#ff3b30}
+.mlock .shackle{transition:transform .25s;transform:translateY(-3px)}
+.mlock[aria-pressed=true] .shackle{transform:none}
+.mlock:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.mbtns{display:flex;gap:8px;margin:4px 0 12px}
+.mbtns .btn{flex:1;justify-content:center;min-height:48px}
+.mbtns .btn[aria-pressed=true]{background:#ff3b30;border-color:#ff3b30;color:#fff}
+.mlock.nudge,.mbtns .btn.nudge{animation:nudge 1.4s ease-in-out infinite}
+@keyframes nudge{50%{box-shadow:0 0 0 6px rgba(255,59,48,.35)}}
+.mstatus{min-height:3.1em;font-size:15px!important;color:#f3ece2!important}
+
+/* espaçadores da rolagem */
+.mech-steps{position:relative;margin-top:-100vh;margin-top:-100svh;pointer-events:none}
+.mstep{height:100vh;height:100svh}
+
+/* sem WebGL: só o painel, com todas as etapas em sequência */
+.no-webgl .mech-stage{position:relative;height:auto;display:block}
+.no-webgl .mech-view,.no-webgl .mech-rail,.no-webgl .mech-steps,.no-webgl .mlock,.no-webgl .mbtns,.no-webgl .mstatus,.no-webgl .mwidget{display:none}
+.no-webgl .mcard{position:static;opacity:1;visibility:visible;max-width:640px;margin-inline:auto}
+
+/* celular e telas estreitas: modelo em cima, painel embaixo */
+@media (max-width:899px){
+  .mech-stage{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,52fr) minmax(0,48fr);grid-template-areas:"view" "panel"}
+  .mech-panel{border-right:0;border-top:1px solid #3a352f}
+  .mech-rail{padding:10px 16px 0}
+  .mech-rail button{width:22px}
+  .mcard{padding:10px 16px 18px}
+  .mcard h2{font-size:clamp(28px,8vw,40px);margin-bottom:8px}
+  .mcard p{font-size:15px;margin-bottom:10px}
+  .mdata{margin-top:8px}.mdata div{padding:6px 0}.mdata dd{font-size:14px}
+  .mwidget{padding:10px 12px}
+  .mwidget li{width:28px;height:28px;font-size:12px}
+  .mwidget svg{width:90px;height:68px}
+  .mlab{font-size:9.5px;padding:2px 5px}
+  .mech-scale{font-size:9.5px;right:10px;bottom:8px}
+}
+@media (prefers-reduced-motion:reduce){.mlock.nudge,.mbtns .btn.nudge{animation:none}.mcard{transition:none}}
 </style>
 </head>
 <body>
@@ -216,6 +316,7 @@ footer .links a{padding-block:12px}
     <nav aria-label="Seções">
       <a href="#historia" class="opt">História</a>
       <a href="#projeto" class="opt">Projeto</a>
+      <a href="#mecanica">Mecânica</a>
       <a href="#jogo">Jogo</a>
       <a href="#album">Álbum</a>
       <a href="#musicas">Músicas</a>
@@ -285,7 +386,7 @@ footer .links a{padding-block:12px}
       <div><dt>Interior</dt><dd>Bancos e forros em tecido preto, bordado diamante mosaico em preto e vermelho</dd></div>
       <div><dt>Painel</dt><dd>Original, com o nome Jula no porta-luvas</dd></div>
       <div><dt>Caçamba</dt><dd>Assoalho em madeira ipê</dd></div>
-      <div><dt>Freios</dt><dd>A disco</dd></div>
+      <div><dt>Freios</dt><dd>Disco na dianteira, tambor na traseira e freio de mão</dd></div>
       <div><dt>Diferencial</dt><dd>Com caixa satélite blocante</dd></div>
       <div><dt>Motor</dt><dd>261, seis cilindros em linha, 4,3 litros</dd></div>
     </dl>
@@ -298,6 +399,129 @@ footer .links a{padding-block:12px}
     <div class="c10note">
       <b>1974</b>
       <p>A Série 10 da Chevrolet foi fabricada no Brasil de 1964 a 1997, com design desenvolvido aqui. Em 1974 a C-10 substituiu a C-14 e foi uma das primeiras picapes brasileiras com suspensão dianteira independente, o que a deixou mais confortável no dia a dia e mais estável na terra.</p>
+    </div>
+  </section>
+
+  <section class="mech" id="mecanica" aria-labelledby="mech-t">
+    <a class="mskip" href="#jogo">Pular a animação</a>
+    <div class="mech-stage">
+      <!-- janela do modelo 3D: nada de texto por cima, só chamadas das peças -->
+      <div class="mech-view">
+        <canvas aria-hidden="true"></canvas>
+        <div class="mech-load">Abrindo a garagem…</div>
+        <div class="mech-labels" aria-hidden="true"></div>
+        <span class="mech-scale" aria-hidden="true">Modelo 3D ilustrativo · fora de escala</span>
+      </div>
+
+      <!-- painel técnico: textos, dados e comandos da etapa atual -->
+      <div class="mech-panel">
+        <nav class="mech-rail" aria-label="Etapas">
+          <ol>
+            <li><button type="button" aria-label="Início"></button></li><li><button type="button" aria-label="Caminho da força"></button></li><li><button type="button" aria-label="Motor"></button></li><li><button type="button" aria-label="Caixa de marcha"></button></li><li><button type="button" aria-label="Diferencial"></button></li><li><button type="button" aria-label="Freios"></button></li><li><button type="button" aria-label="Tudo no lugar"></button></li>
+          </ol>
+          <span class="mech-count" aria-hidden="true">01 / 07</span>
+        </nav>
+        <div class="mech-cards">
+
+          <article class="mcard on">
+            <span class="eyebrow">Por dentro da Jula</span>
+            <h2 id="mech-t">Da faísca <span>à roda.</span></h2>
+            <p>Role a página devagar. A C10 se abre e mostra como a força nasce no motor, passa pela caixa de marcha e chega ao chão pelo diferencial.</p>
+            <p class="mlegend">Cada número mostra de onde veio: <i class="tag t-ficha">Ficha do projeto</i> <i class="tag t-cat">Catálogo</i> <i class="tag t-calc">Calculado</i> <i class="tag t-conf">A confirmar</i></p>
+          </article>
+
+          <article class="mcard">
+            <span class="eyebrow">O caminho da força</span>
+            <h2>Uma linha <span>de fogo.</span></h2>
+            <p>A explosão empurra o pistão e o virabrequim gira. A embreagem passa esse giro para a caixa, o cardã leva até o diferencial e o diferencial divide a força entre as duas rodas de trás.</p>
+            <ol class="mflow"><li>Motor</li><li>Embreagem</li><li>Caixa</li><li>Cardã</li><li>Diferencial</li><li>Rodas</li></ol>
+          </article>
+
+          <article class="mcard">
+            <span class="eyebrow">Motor 261 · seis em linha</span>
+            <h2>Seis pistões <span>numa fila só.</span></h2>
+            <p>O cabeçote sobe e mostra o que fica escondido. Role a página para girar o virabrequim: cada cilindro acende na hora em que dispara.</p>
+            <div class="mwidget" data-hud="fire"><span class="hud-t">Ordem de ignição</span><ol><li>1</li><li>5</li><li>3</li><li>6</li><li>2</li><li>4</li></ol></div>
+            <dl class="mdata">
+              <div><dt>Cilindrada</dt><dd>261 pol³ · 4,3 L</dd><i class="tag t-ficha">Ficha do projeto</i></div>
+              <div><dt>Diâmetro × curso</dt><dd>3,75 × 3,94 pol</dd><i class="tag t-cat">Catálogo</i></div>
+              <div><dt>Conferência</dt><dd>π/4 × 3,75² × 3,9375 × 6 = 260,9 pol³</dd><i class="tag t-calc">Calculado</i></div>
+              <div><dt>Ordem de ignição</dt><dd>1-5-3-6-2-4</dd><i class="tag t-cat">Catálogo</i></div>
+              <div><dt>Arrefecimento</dt><dd>Radiador de alumínio</dd><i class="tag t-ficha">Ficha do projeto</i></div>
+              <div><dt>Hélice do ventilador</dt><dd>Aço, 6 pás, fixação de 4 furos</dd><i class="tag t-ficha">Ficha do projeto</i></div>
+              <div><dt>Diâmetro da hélice</dt><dd>A informar</dd><i class="tag t-conf">A confirmar</i></div>
+              <div><dt>Elétrica</dt><dd>Bateria no cofre do motor</dd><i class="tag t-ficha">Ficha do projeto</i></div>
+            </dl>
+          </article>
+
+          <article class="mcard">
+            <span class="eyebrow">Caixa de marcha</span>
+            <h2>Uma marcha <span>de cada vez.</span></h2>
+            <p>São três marchas e a ré, no H gravado na bola da alavanca. Na 1ª, uma engrenagem pequena gira uma grande: pouca velocidade e muita força para tirar a C10 do lugar. Na 2ª e na 3ª, a troca se inverte e a velocidade cresce. Ao lado do câmbio ficam o freio de mão e a trava do diferencial.</p>
+            <div class="mwidget mwidget-gear" data-hud="gear">
+              <svg viewBox="0 0 120 90" width="120" height="90" aria-hidden="true"><path d="M30 15V75M90 15V75M30 45H90" fill="none" stroke="#5a534b" stroke-width="4" stroke-linecap="round"/><g font-family="JetBrains Mono,monospace" font-size="11" fill="#a89f93" text-anchor="middle"><text x="16" y="19">R</text><text x="16" y="79">1</text><text x="104" y="19">2</text><text x="104" y="79">3</text></g><circle class="knob" cx="60" cy="45" r="8" fill="#ff3b30"/></svg>
+              <span class="hud-t">Marcha engatada <b>1ª</b></span>
+            </div>
+            <dl class="mdata">
+              <div><dt>Marchas</dt><dd>3 à frente e ré</dd><i class="tag t-ficha">Ficha do projeto</i></div>
+              <div><dt>Padrão</dt><dd>R e 1 à esquerda, 2 e 3 à direita</dd><i class="tag t-ficha">Ficha do projeto</i></div>
+              <div><dt>Junto do câmbio</dt><dd>Freio de mão e trava do diferencial</dd><i class="tag t-ficha">Ficha do projeto</i></div>
+              <div><dt>Modelo da caixa e relações</dt><dd>A informar</dd><i class="tag t-conf">A confirmar</i></div>
+            </dl>
+          </article>
+
+          <article class="mcard">
+            <span class="eyebrow">Diferencial blocante</span>
+            <h2>Uma roda <span>na lama.</span></h2>
+            <p>Na curva, o diferencial deixa cada roda girar no seu ritmo. Na lama, isso vira problema: a força escapa pela roda que patina e a outra fica parada. A trava junta as duas rodas.</p>
+            <button type="button" class="mlock" aria-pressed="false">
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="shackle" d="M7.5 11V8a4.5 4.5 0 0 1 9 0v3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><rect x="5" y="11" width="14" height="10" rx="2" fill="currentColor"/></svg>
+              <span>Blocar diferencial</span>
+            </button>
+            <p class="mstatus" aria-live="polite">Aberto: a roda na lama gira em dobro e a do chão firme fica parada. A C10 não sai.</p>
+            <div class="mwidget" data-hud="diff"><span class="hud-t">Giro de cada roda, em relação à coroa</span>
+              <div class="drow"><span>Roda na lama</span><i><b data-bar="mud"></b></i><em data-val="mud">2,0×</em></div>
+              <div class="drow"><span>Chão firme</span><i><b data-bar="grip"></b></i><em data-val="grip">0,0×</em></div>
+              <strong data-val="state">A C10 está parada</strong>
+            </div>
+            <dl class="mdata">
+              <div><dt>Diferencial</dt><dd>Com caixa satélite blocante</dd><i class="tag t-ficha">Ficha do projeto</i></div>
+              <div><dt>Acionamento</dt><dd>Alavanca ao lado do câmbio, por cabo</dd><i class="tag t-ficha">Ficha do projeto</i></div>
+              <div><dt>Regra do diferencial</dt><dd>Roda esquerda + roda direita = 2 × coroa</dd><i class="tag t-calc">Calculado</i></div>
+              <div><dt>Relação coroa e pinhão</dt><dd>A informar</dd><i class="tag t-conf">A confirmar</i></div>
+            </dl>
+          </article>
+
+          <article class="mcard">
+            <span class="eyebrow">Freios</span>
+            <h2>Disco na frente, <span>tambor atrás.</span></h2>
+            <p>Na frente, a pinça aperta as pastilhas contra o disco. Atrás, as sapatas abrem por dentro do tambor. O freio de mão, ao lado do câmbio, puxa um cabo que abre só as sapatas de trás.</p>
+            <div class="mbtns" role="group" aria-label="Freios">
+              <button type="button" class="btn" data-brake="pedal" aria-pressed="false">Frear</button>
+              <button type="button" class="btn" data-brake="hand" aria-pressed="false">Freio de mão</button>
+            </div>
+            <p class="mstatus" data-bstatus aria-live="polite">Rodando. Toque em Frear ou puxe o freio de mão.</p>
+            <dl class="mdata">
+              <div><dt>Dianteira</dt><dd>Freio a disco</dd><i class="tag t-ficha">Ficha do projeto</i></div>
+              <div><dt>Traseira</dt><dd>Freio a tambor</dd><i class="tag t-ficha">Ficha do projeto</i></div>
+              <div><dt>Freio de mão</dt><dd>Alavanca ao lado do câmbio, cabo até os tambores</dd><i class="tag t-ficha">Ficha do projeto</i></div>
+            </dl>
+          </article>
+
+          <article class="mcard">
+            <span class="eyebrow">Tudo no lugar</span>
+            <h2>Original no espírito, <span>nova na estrada.</span></h2>
+            <p>Chassi, freios, suspensão, transmissão e diferencial foram melhorados sem tirar a alma da C10.</p>
+            <a class="btn solid" href="#album">Ver a restauração</a>
+          </article>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- espaçadores: a rolagem por eles avança as etapas -->
+    <div class="mech-steps" aria-hidden="true">
+      <div class="mstep"></div><div class="mstep"></div><div class="mstep"></div><div class="mstep"></div><div class="mstep"></div><div class="mstep"></div><div class="mstep"></div>
     </div>
   </section>
 
@@ -534,6 +758,11 @@ tl.addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) retur
   pl.hidden=false;
   pl.innerHTML=`<iframe src="https://audius.co/embed/track/${id}?flavor=compact" title="Player: ${t}" allow="encrypted-media; autoplay" loading="lazy"></iframe><a class="link" href="https://audius.co/Jula.thetruck/${slug}">Abrir “${t}” no Audius</a>`;
 });
+</script>
+
+<script>
+{const s=document.getElementById('mecanica');if(s){let go=false;const load=()=>{if(go)return;go=true;import('./js/mecanica.js').catch(()=>s.classList.add('no-webgl'));};
+if('IntersectionObserver' in window){const io=new IntersectionObserver(e=>{if(e.some(x=>x.isIntersecting)){io.disconnect();load();}},{rootMargin:'1200px 0px'});io.observe(s);}else load();}}
 </script>
 
 </body>
