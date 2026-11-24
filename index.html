@@ -193,8 +193,24 @@ figcaption time{display:block;font-family:var(--mono);font-size:11px;letter-spac
 .secs li.in3d b{color:#ff3b30}
 .secs-key{font:11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--night-muted)}
 .secs-key i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ff3b30;margin-right:6px}
-@media (max-width:900px){.lib-head,.lib-grid{grid-template-columns:1fr}}
+@media (max-width:900px){.lib-head,.lib-grid{grid-template-columns:1fr}.lib-grid{grid-template-areas:"kids" "book" "manual"}}
 @media (max-width:520px){.book{grid-template-columns:96px minmax(0,1fr);gap:16px}.book .acts{flex-direction:column}.book .acts .btn{justify-content:center;white-space:nowrap}.secs{grid-template-columns:1fr}.shelf{padding:18px}}
+/* biblioteca com três itens */
+.lib-grid{grid-template-areas:"kids manual" "book manual"}
+.shelf.kids{grid-area:kids}.shelf.main{grid-area:book}.shelf.manual{grid-area:manual}
+.book .credit2{font-size:14px;color:var(--night-muted)}
+/* oficina da jula (crianças) */
+.ofc{padding-block:88px 24px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center}
+.ofc a.pic{display:block;border-radius:14px;overflow:hidden;box-shadow:0 24px 50px rgba(0,0,0,.18)}
+.ofc a.pic img{width:100%;height:auto;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.ofc a.pic:hover img{transform:scale(1.02)}
+.ofc h2{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(52px,8vw,108px);line-height:.88;margin:0 0 18px;text-wrap:balance}
+.ofc h2 span{color:var(--red)}
+.ofc p{margin:0 0 1em;max-width:52ch}
+.ofc .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.ofc .eyebrow{color:var(--muted)}
+@media (max-width:900px){.ofc{grid-template-columns:1fr;gap:28px}}
+@media (max-width:520px){.ofc .acts{flex-direction:column}.ofc .acts .btn{justify-content:center;white-space:nowrap}}
 /* planos de fundo para baixar */
 .walls{padding-block:88px 24px}
 .walls-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px 48px;align-items:end;margin-bottom:32px}
@@ -366,6 +382,7 @@ footer .links a{padding-block:12px}
       <a href="#historia" class="opt">História</a>
       <a href="#projeto" class="opt">Projeto</a>
       <a href="#mecanica">Mecânica</a>
+      <a href="#oficina">Oficina</a>
       <a href="#jogo">Jogo</a>
       <a href="#album">Álbum</a>
       <a href="#musicas">Músicas</a>
@@ -579,10 +596,23 @@ footer .links a{padding-block:12px}
     <div class="wrap">
       <div class="lib-head">
         <h2 id="lib-t">Biblioteca <span>da garagem.</span></h2>
-        <p>O que está por trás da restauração: o livro que conta a história da Jula e o manual de fábrica da C10.</p>
+        <p>O que está por trás da restauração: os livros que contam a história da Jula, para adultos e para crianças, e o manual de fábrica da C10.</p>
       </div>
       <div class="lib-grid">
-        <article class="shelf book">
+        <article class="shelf book kids">
+          <picture><source srcset="img/infantil-capa.webp" type="image/webp"><img src="img/infantil-capa.jpg" alt="Capa ilustrada do livro infantil Jula: quase tudo tem conserto, com um menino abraçando a caminhonete vermelha" width="640" height="640" loading="lazy"></picture>
+          <div>
+            <span class="meta">Livro infantil · 25 páginas · PDF 7 MB</span>
+            <h3>Jula: quase tudo tem conserto</h3>
+            <p>A história da Jula contada para as crianças: a caminhonete esquecida debaixo da lona, a oficina do Seu Zito e a descoberta de que quase tudo tem conserto.</p>
+            <p class="credit2">Texto de Bruno Azevedo · Ilustrações de Sayuri Matsuda</p>
+            <div class="acts">
+              <a class="btn solid" href="livro/Jula-quase-tudo-tem-conserto.pdf" target="_blank" rel="noopener">Ler o livro</a>
+              <a class="btn" href="livro/Jula-quase-tudo-tem-conserto.pdf" download="Jula-quase-tudo-tem-conserto.pdf">Baixar</a>
+            </div>
+          </div>
+        </article>
+        <article class="shelf book main">
           <picture><source srcset="img/livro-capa.webp" type="image/webp"><img src="img/livro-capa.jpg" alt="Capa vermelha do livro Projeto Jula The Truck, por Bruno Azevedo" width="605" height="935" loading="lazy"></picture>
           <div>
             <span class="meta">O livro · 36 páginas · PDF 6 MB</span>
@@ -594,7 +624,7 @@ footer .links a{padding-block:12px}
             </div>
           </div>
         </article>
-        <article class="shelf">
+        <article class="shelf manual">
           <span class="meta">O manual · Referência da oficina</span>
           <h3>Manual de Reparação GM · Série C-10</h3>
           <p>O manual de fábrica da Chevrolet é a referência técnica da restauração. Como é material da GM, ele não está publicado aqui. Abaixo estão as seções que ele cobre.</p>
@@ -622,6 +652,19 @@ footer .links a{padding-block:12px}
     </div>
   </section>
 
+  <section class="wrap ofc" id="oficina" aria-labelledby="ofc-t">
+    <a class="pic" href="oficina/"><picture><source srcset="img/oficina.webp" type="image/webp"><img src="img/oficina.jpg" alt="A Jula em 3D desmontada na Oficina da Jula, com etiquetas nas peças: cabine e caçamba, chassi, motor, radiador, bateria, faróis, retrovisores, cardã e diferencial, freio a disco e rodas" width="1200" height="946" loading="lazy"></picture></a>
+    <div>
+      <span class="eyebrow">Para as crianças</span>
+      <h2 id="ofc-t">Oficina <span>da Jula.</span></h2>
+      <p>Desmonte a Jula em 3D, toque numa peça e ouça a narração explicando para que ela serve. São dez peças, do chassi ao freio a disco, e uma brincadeira de achar a peça.</p>
+      <p>Cada peça do livro <em>Jula: quase tudo tem conserto</em> tem um QR code que abre direto aqui.</p>
+      <div class="acts">
+        <a class="btn solid" href="oficina/">Abrir a oficina</a>
+        <a class="btn" href="oficina/#motor">Ver o motor</a>
+      </div>
+    </div>
+  </section>
   <section class="band" id="jogo" aria-labelledby="jogo-t">
     <div class="wrap game">
       <div>
@@ -719,6 +762,7 @@ footer .links a{padding-block:12px}
   <div class="sig">Projeto Jula</div>
   <p>Chevrolet C10 1977. Um tributo à vovó Julieta e ao vovô Antônio.<br>Por Bruno Azevedo, neto de Antônio e Julieta, apaixonado por carros e motos antigas. Projeto visual de Eder H. Martins, ToyPic Art.</p>
   <div class="links">
+    <a href="oficina/">Oficina da Jula</a>
     <a href="https://380run.github.io/julathetruck/">Jogo</a>
     <a href="https://audius.co/jula.thetruck">Músicas no Audius</a>
     <a href="#julacoin">Julacoin</a>
