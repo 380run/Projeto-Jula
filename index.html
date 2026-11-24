@@ -178,7 +178,9 @@ figcaption time{display:block;font-family:var(--mono);font-size:11px;letter-spac
 .lib h2{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(44px,6vw,80px);line-height:.9;margin:0;text-wrap:balance}
 .lib h2 span{color:#ff3b30}
 .lib-head p{margin:0;max-width:56ch;color:#d9d1c6}
-.lib-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.lib-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:stretch}
+.book>div{display:flex;flex-direction:column;gap:10px;height:100%}
+.book .acts{margin-top:auto}
 .shelf{background:#171615;border:1px solid #2e2a26;border-radius:4px;padding:24px;display:flex;flex-direction:column;gap:14px}
 .shelf h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(28px,3vw,36px);line-height:.95;margin:0}
 .shelf p{margin:0;color:#d9d1c6;font-size:16px;line-height:1.55}
@@ -186,18 +188,9 @@ figcaption time{display:block;font-family:var(--mono);font-size:11px;letter-spac
 .book{display:grid;grid-template-columns:150px minmax(0,1fr);gap:22px;align-items:start}
 .book img{width:100%;height:auto;box-shadow:0 18px 30px rgba(0,0,0,.45);border-radius:2px}
 .book .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
-.secs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px;border-top:1px solid #3a352f}
-.secs li{display:grid;grid-template-columns:3.2em minmax(0,1fr);gap:8px;padding:7px 0;border-bottom:1px solid #2e2a26;font-size:14px;line-height:1.3;color:#a89f93}
-.secs b{font:600 12px var(--mono);color:#6f675e}
-.secs li.in3d{color:#f3ece2}
-.secs li.in3d b{color:#ff3b30}
-.secs-key{font:11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--night-muted)}
-.secs-key i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ff3b30;margin-right:6px}
-@media (max-width:900px){.lib-head,.lib-grid{grid-template-columns:1fr}.lib-grid{grid-template-areas:"kids" "book" "manual"}}
-@media (max-width:520px){.book{grid-template-columns:96px minmax(0,1fr);gap:16px}.book .acts{flex-direction:column}.book .acts .btn{justify-content:center;white-space:nowrap}.secs{grid-template-columns:1fr}.shelf{padding:18px}}
+@media (max-width:900px){.lib-head,.lib-grid{grid-template-columns:1fr}}
+@media (max-width:520px){.book{grid-template-columns:96px minmax(0,1fr);gap:16px}.book .acts{flex-direction:column}.book .acts .btn{justify-content:center;white-space:nowrap}.shelf{padding:18px}}
 /* biblioteca com três itens */
-.lib-grid{grid-template-areas:"kids manual" "book manual"}
-.shelf.kids{grid-area:kids}.shelf.main{grid-area:book}.shelf.manual{grid-area:manual}
 .book .credit2{font-size:14px;color:var(--night-muted)}
 /* oficina da jula (crianças) */
 .ofc{padding-block:88px 24px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center}
@@ -211,6 +204,29 @@ figcaption time{display:block;font-family:var(--mono);font-size:11px;letter-spac
 .ofc .eyebrow{color:var(--muted)}
 @media (max-width:900px){.ofc{grid-template-columns:1fr;gap:28px}}
 @media (max-width:520px){.ofc .acts{flex-direction:column}.ofc .acts .btn{justify-content:center;white-space:nowrap}}
+/* leitor de livros: uma página por vez, deslize ou setas */
+.cover-open{display:block}
+.rd{position:fixed;inset:0;z-index:60;background:#0d0c0b;color:#efe8de;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+.rd[hidden]{display:none}
+.rd-top{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #2e2a26}
+.rd-top h2{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:22px;line-height:1;margin:0;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rd-top a,.rd-top button,.rd-nav button{font:600 13px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:inherit;background:transparent;border:1.5px solid #4a443d;border-radius:4px;min-height:44px;padding:0 14px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer;flex:none}
+.rd-top button.x{background:#ff3b30;border-color:#ff3b30;color:#fff}
+.rd-stage{position:relative;display:grid;place-items:center;min-height:0;min-width:0;overflow:hidden;padding:12px;touch-action:pan-y pinch-zoom;user-select:none}
+.rd-stage img{grid-area:1/1;min-width:0;min-height:0;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;box-shadow:0 20px 50px rgba(0,0,0,.6);background:#fff;transition:opacity .2s;cursor:pointer}
+.rd-stage img.loading{opacity:.35}
+.rd-side{position:absolute;top:50%;transform:translateY(-50%);width:56px;height:96px;border:0;border-radius:6px;background:rgba(255,255,255,.08);color:#fff;font-size:28px;cursor:pointer;display:grid;place-items:center}
+.rd-side:hover{background:rgba(255,59,48,.85)}
+.rd-side[disabled]{opacity:.15;cursor:default;background:rgba(255,255,255,.08)}
+.rd-side.prev{left:16px}.rd-side.next{right:16px}
+.rd-nav{display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 16px 14px}
+.rd-nav button{min-width:64px;font-size:20px}
+.rd-nav button[disabled]{opacity:.3;cursor:default}
+.rd-count{font:600 14px var(--mono);letter-spacing:.08em;min-width:7.5em;text-align:center;color:#a89f93}
+.rd :focus-visible{outline:3px solid #fff;outline-offset:2px}
+html.reading{overflow:hidden}
+@media (min-width:821px){.rd-stage{padding:20px 96px}}
+@media (max-width:820px){.rd-side{display:none}.rd-top h2{font-size:18px}.rd-top .dl span{display:none}}
 /* planos de fundo para baixar */
 .walls{padding-block:88px 24px}
 .walls-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px 48px;align-items:end;margin-bottom:32px}
@@ -596,57 +612,33 @@ footer .links a{padding-block:12px}
     <div class="wrap">
       <div class="lib-head">
         <h2 id="lib-t">Biblioteca <span>da garagem.</span></h2>
-        <p>O que está por trás da restauração: os livros que contam a história da Jula, para adultos e para crianças, e o manual de fábrica da C10.</p>
+        <p>Os dois livros da Jula: a história da restauração contada para adultos e a versão ilustrada para as crianças. Leia aqui mesmo, página por página, ou baixe o PDF.</p>
       </div>
       <div class="lib-grid">
         <article class="shelf book kids">
-          <picture><source srcset="img/infantil-capa.webp" type="image/webp"><img src="img/infantil-capa.jpg" alt="Capa ilustrada do livro infantil Jula: quase tudo tem conserto, com um menino abraçando a caminhonete vermelha" width="640" height="640" loading="lazy"></picture>
+          <a class="cover-open" href="livro/Jula-quase-tudo-tem-conserto.pdf" data-book="infantil" aria-label="Ler o livro infantil"><picture><source srcset="img/infantil-capa.webp" type="image/webp"><img src="img/infantil-capa.jpg" alt="Capa ilustrada do livro infantil Jula: quase tudo tem conserto, com um menino abraçando a caminhonete vermelha" width="640" height="640" loading="lazy"></picture></a>
           <div>
-            <span class="meta">Livro infantil · 25 páginas · PDF 7 MB</span>
+            <span class="meta">Livro infantil · 25 páginas</span>
             <h3>Jula: quase tudo tem conserto</h3>
             <p>A história da Jula contada para as crianças: a caminhonete esquecida debaixo da lona, a oficina do Seu Zito e a descoberta de que quase tudo tem conserto.</p>
             <p class="credit2">Texto de Bruno Azevedo · Ilustrações de Sayuri Matsuda</p>
             <div class="acts">
-              <a class="btn solid" href="livro/Jula-quase-tudo-tem-conserto.pdf" target="_blank" rel="noopener">Ler o livro</a>
-              <a class="btn" href="livro/Jula-quase-tudo-tem-conserto.pdf" download="Jula-quase-tudo-tem-conserto.pdf">Baixar</a>
+              <a class="btn solid" href="livro/Jula-quase-tudo-tem-conserto.pdf" data-book="infantil">Ler o livro</a>
+              <a class="btn" href="livro/Jula-quase-tudo-tem-conserto.pdf" download="Jula-quase-tudo-tem-conserto.pdf">Baixar PDF</a>
             </div>
           </div>
         </article>
         <article class="shelf book main">
-          <picture><source srcset="img/livro-capa.webp" type="image/webp"><img src="img/livro-capa.jpg" alt="Capa vermelha do livro Projeto Jula The Truck, por Bruno Azevedo" width="605" height="935" loading="lazy"></picture>
+          <a class="cover-open" href="livro/Projeto-Jula-The-Truck.pdf" data-book="projeto" aria-label="Ler o livro Projeto Jula The Truck"><picture><source srcset="img/livro-capa.webp" type="image/webp"><img src="img/livro-capa.jpg" alt="Capa vermelha do livro Projeto Jula The Truck, por Bruno Azevedo" width="605" height="935" loading="lazy"></picture></a>
           <div>
-            <span class="meta">O livro · 36 páginas · PDF 6 MB</span>
+            <span class="meta">Livro do projeto · 36 páginas</span>
             <h3>Projeto Jula The Truck</h3>
             <p>A história do vovô Antônio e da vovó Julieta, o renascimento da C10, a ficha técnica e as letras das músicas. Por Bruno Azevedo.</p>
             <div class="acts">
-              <a class="btn solid" href="livro/Projeto-Jula-The-Truck.pdf" target="_blank" rel="noopener">Ler o livro</a>
-              <a class="btn" href="livro/Projeto-Jula-The-Truck.pdf" download="Projeto-Jula-The-Truck.pdf">Baixar</a>
+              <a class="btn solid" href="livro/Projeto-Jula-The-Truck.pdf" data-book="projeto">Ler o livro</a>
+              <a class="btn" href="livro/Projeto-Jula-The-Truck.pdf" download="Projeto-Jula-The-Truck.pdf">Baixar PDF</a>
             </div>
           </div>
-        </article>
-        <article class="shelf manual">
-          <span class="meta">O manual · Referência da oficina</span>
-          <h3>Manual de Reparação GM · Série C-10</h3>
-          <p>O manual de fábrica da Chevrolet é a referência técnica da restauração. Como é material da GM, ele não está publicado aqui. Abaixo estão as seções que ele cobre.</p>
-          <span class="secs-key"><i></i>Aparecem na mecânica 3D</span>
-          <ol class="secs">
-            <li><b>00</b><span>Identificação e lubrificação</span></li>
-            <li><b>01</b><span>Cabina e carroçaria</span></li>
-            <li class="in3d"><b>02</b><span>Chassi</span></li>
-            <li><b>03</b><span>Suspensão dianteira</span></li>
-            <li class="in3d"><b>04</b><span>Eixo traseiro, cardã e suspensão traseira</span></li>
-            <li class="in3d"><b>05</b><span>Freios</span></li>
-            <li class="in3d"><b>06</b><span>Motor (mecânica)</span></li>
-            <li class="in3d"><b>06-A</b><span>Motor (eletricidade)</span></li>
-            <li class="in3d"><b>07</b><span>Caixa de mudanças e embreagem</span></li>
-            <li><b>08</b><span>Tanque e escapamento</span></li>
-            <li><b>09</b><span>Direção</span></li>
-            <li><b>10</b><span>Rodas e pneus</span></li>
-            <li><b>11</b><span>Partes metálicas</span></li>
-            <li><b>12</b><span>Sistema elétrico</span></li>
-            <li class="in3d"><b>13</b><span>Radiador e grade</span></li>
-            <li><b>14</b><span>Para-choques</span></li>
-          </ol>
         </article>
       </div>
     </div>
@@ -769,6 +761,24 @@ footer .links a{padding-block:12px}
     <a href="#fundos">Planos de fundo</a>
   </div>
 </footer>
+
+<div class="rd" id="rd" hidden role="dialog" aria-modal="true" aria-labelledby="rdTitle">
+  <div class="rd-top">
+    <h2 id="rdTitle">Livro</h2>
+    <a class="dl" id="rdPdf" href="#" download><span>Baixar&nbsp;</span>PDF</a>
+    <button type="button" class="x" id="rdClose">Fechar</button>
+  </div>
+  <div class="rd-stage" id="rdStage">
+    <button type="button" class="rd-side prev" id="rdPrevS" aria-label="Página anterior">‹</button>
+    <img id="rdImg" alt="">
+    <button type="button" class="rd-side next" id="rdNextS" aria-label="Próxima página">›</button>
+  </div>
+  <div class="rd-nav">
+    <button type="button" id="rdPrev" aria-label="Página anterior">←</button>
+    <span class="rd-count" id="rdCount" aria-live="polite">1 / 1</span>
+    <button type="button" id="rdNext" aria-label="Próxima página">→</button>
+  </div>
+</div>
 
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Foto ampliada">
   <div class="stage"><img id="lbImg" alt=""></div>
@@ -936,6 +946,61 @@ tl.addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) retur
 <script>
 {const s=document.getElementById('mecanica');if(s){let go=false;const load=()=>{if(go)return;go=true;import('./js/mecanica.js').catch(()=>s.classList.add('no-webgl'));};
 if('IntersectionObserver' in window){const io=new IntersectionObserver(e=>{if(e.some(x=>x.isIntersecting)){io.disconnect();load();}},{rootMargin:'1200px 0px'});io.observe(s);}else load();}}
+</script>
+
+<script>
+/* leitor dos livros: uma imagem por página (abre igual no celular e no computador); o PDF fica para baixar */
+{
+const BOOKS={
+  infantil:{title:'Jula: quase tudo tem conserto',n:25,dir:'livro/paginas/infantil/',pdf:'livro/Jula-quase-tudo-tem-conserto.pdf',w:1200,h:1200},
+  projeto:{title:'Projeto Jula The Truck',n:36,dir:'livro/paginas/projeto/',pdf:'livro/Projeto-Jula-The-Truck.pdf',w:906,h:1400}
+};
+const $=id=>document.getElementById(id), rd=$('rd'), img=$('rdImg');
+let book=null, page=1, opener=null, pushed=false, keepY=0;
+const src=n=>book.dir+String(n).padStart(2,'0')+'.webp';
+function render(){
+  img.classList.add('loading'); img.width=book.w; img.height=book.h;
+  img.src=src(page); img.alt=book.title+', página '+page+' de '+book.n;
+  $('rdCount').textContent=page+' / '+book.n;
+  [$('rdPrev'),$('rdPrevS')].forEach(b=>b.disabled=page<=1);
+  [$('rdNext'),$('rdNextS')].forEach(b=>b.disabled=page>=book.n);
+  [page+1,page-1].forEach(k=>{if(k>=1&&k<=book.n){const i=new Image();i.src=src(k);}});
+}
+img.addEventListener('load',()=>img.classList.remove('loading'));
+const go=d=>{if(!book)return;const k=Math.min(book.n,Math.max(1,page+d));if(k!==page){page=k;render();}};
+function open(key,el){
+  book=BOOKS[key]; page=1; opener=el||null;
+  $('rdTitle').textContent=book.title; $('rdPdf').href=book.pdf; $('rdPdf').setAttribute('download',book.pdf.split('/').pop());
+  keepY=scrollY; rd.hidden=false; document.documentElement.classList.add('reading'); render(); $('rdClose').focus();
+  try{history.scrollRestoration='manual';history.pushState({reader:key},'');pushed=true;}catch(e){pushed=false;}
+}
+function close(fromPop){
+  if(rd.hidden)return; rd.hidden=true; document.documentElement.classList.remove('reading'); book=null;
+  if(!fromPop&&pushed){pushed=false;history.back();}
+  scrollTo(0,keepY); requestAnimationFrame(()=>scrollTo(0,keepY));
+  if(opener)opener.focus({preventScroll:true});
+}
+document.addEventListener('click',e=>{const a=e.target.closest('[data-book]');if(!a||!BOOKS[a.dataset.book])return;e.preventDefault();open(a.dataset.book,a);});
+$('rdClose').onclick=()=>close(false);
+$('rdPrev').onclick=$('rdPrevS').onclick=()=>go(-1);
+$('rdNext').onclick=$('rdNextS').onclick=()=>go(1);
+addEventListener('popstate',()=>{if(!rd.hidden){pushed=false;close(true);}});
+addEventListener('keydown',e=>{
+  if(rd.hidden)return;
+  if(e.key==='Escape'){e.preventDefault();close(false);}
+  else if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();go(1);}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(-1);}
+  else if(e.key==='Tab'){const f=[...rd.querySelectorAll('a,button:not([disabled])')].filter(x=>x.offsetParent);const i=f.indexOf(document.activeElement);
+    if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus();}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus();}}
+});
+/* deslizar para o lado troca a página */
+let sx=null,sy=0;
+$('rdStage').addEventListener('touchstart',e=>{if(e.touches.length===1){sx=e.touches[0].clientX;sy=e.touches[0].clientY;}else sx=null;},{passive:true});
+$('rdStage').addEventListener('touchend',e=>{if(sx===null)return;const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;sx=null;
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.4)go(dx<0?1:-1);},{passive:true});
+/* tocar na metade esquerda ou direita da página também troca */
+img.addEventListener('click',e=>{const r=img.getBoundingClientRect();go(e.clientX<r.left+r.width/2?-1:1);});
+}
 </script>
 
 </body>
